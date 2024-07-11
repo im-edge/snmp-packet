@@ -47,6 +47,16 @@ abstract class Pdu
         return $this->errorStatus !== 0;
     }
 
+    public function getErrorStatus(): int
+    {
+        return $this->errorStatus;
+    }
+
+    public function getErrorIndex(): int
+    {
+        return $this->errorIndex;
+    }
+
     public function toASN1(): ImplicitlyTaggedType
     {
         if ($this->requestId === null) {
