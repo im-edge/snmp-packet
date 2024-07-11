@@ -77,8 +77,11 @@ abstract class DataType implements JsonSerializable
 
     public function getReadableValue(): string
     {
-        if (is_string($this->rawValue) || is_int($this->rawValue)) {
+        if (is_int($this->rawValue)) {
             return (string)$this->rawValue;
+        }
+        if (is_string($this->rawValue)) {
+            return self::getPrintableString($this->rawValue);
         }
         if ($this->rawValue instanceof GMP) {
             return gmp_strval($this->rawValue);
@@ -88,6 +91,24 @@ abstract class DataType implements JsonSerializable
         }
 
         throw new RuntimeException('Cannot provide readable value for rawValue in ' . get_class($this));
+    }
+
+    protected static function getPrintableString(string $string): string
+    {
+        if (ctype_print($string)) {
+            $value = $string;
+        } else {
+            $value = '';
+            foreach (mb_str_split($string) as $char) {
+                if (\IntlChar::isprint($char)) {
+                    $value .= $char;
+                } else {
+                    $value .= '\\x' . bin2hex($char);
+                }
+            }
+        }
+
+        return $value;
     }
 
     public static function fromBinary(string $binary): DataType|static
