@@ -49,12 +49,13 @@ class VarBind
         /** @var UnspecifiedType $varBind */
         foreach ($sequence as $idx => $varBind) {
             try {
-                $list[] = VarBind::fromASN1($varBind->asSequence());
+                $s = $varBind->asSequence();
+                $list[] = VarBind::fromASN1($s);
             } catch (UnexpectedValueException $e) {
                 throw new InvalidArgumentException(sprintf(
                     "Can't decode Variable Binding %d: %s",
                     $idx + 1,
-                    $e->getMessage()
+                    $e->getMessage() . var_export($varBind, true)
                 ), 0, $e);
             }
         }
