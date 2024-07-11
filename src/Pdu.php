@@ -83,7 +83,8 @@ abstract class Pdu
             self::GET_BULK_REQUEST => new GetBulkRequest($varBinds),
             self::INFORM_REQUEST   => new InformRequest($varBinds),
             self::TRAP_V2          => new TrapV2($varBinds),
-            default                 => throw new InvalidArgumentException(sprintf(
+            self::REPORT           => new Report($varBinds),
+            default                => throw new InvalidArgumentException(sprintf(
                 'Invalid PDU tag %s',
                 $tagged->tag()
             )),
