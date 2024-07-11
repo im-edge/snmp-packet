@@ -52,20 +52,6 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
     }
 
     /**
-     * @param array<int|string, string> $oidList
-     * @param SocketAddress[]|string[] $targets
-     * @param string $community
-     * @return void
-     */
-    public function scan(
-        array $oidList,
-        array $targets,
-        #[\SensitiveParameter] string $community
-    ): void {
-        // TODO: implement. Scan, return promise
-    }
-
-    /**
      * @param array<string, string> $oidList oid => alias
      */
     public function get(
