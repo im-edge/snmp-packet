@@ -22,6 +22,35 @@ abstract class DataType implements JsonSerializable
     public const COUNTER_64 = 6;
     public const UNSIGNED_32 = 7;
 
+    /*
+     * SNMPv2-SMI:
+     *
+     * -- the "base types" defined here are:
+     * --   3 built-in ASN.1 types: INTEGER, OCTET STRING, OBJECT IDENTIFIER
+     * --   8 application-defined types: Integer32, IpAddress, Counter32,
+     * --              Gauge32, Unsigned32, TimeTicks, Opaque, and Counter64
+     *
+     * IpAddress ::= [APPLICATION 0] IMPLICIT OCTET STRING (SIZE (4))
+     *
+     * -- this wraps
+     * Counter32 ::= [APPLICATION 1] IMPLICIT INTEGER (0..4294967295)
+     *
+     * -- this doesn't wrap
+     * Gauge32 ::= [APPLICATION 2] IMPLICIT INTEGER (0..4294967295)
+     *
+     * -- an unsigned 32-bit quantity
+     * -- indistinguishable from Gauge32
+     * Unsigned32 ::= [APPLICATION 2] IMPLICIT INTEGER (0..4294967295)
+     *
+     * -- hundredths of seconds since an epoch
+     * TimeTicks ::= [APPLICATION 3] IMPLICIT INTEGER (0..4294967295)
+     *
+     * -- for backward-compatibility only
+     * Opaque ::= [APPLICATION 4] IMPLICIT OCTET STRING
+     *
+     * -- for counters that wrap in less than one hour with only 32 bits
+     * Counter64 ::= [APPLICATION 6] IMPLICIT INTEGER (0..18446744073709551615)
+     */
     protected const TYPE_TO_NAME_MAP = [
         self::IP_ADDRESS   => 'ip_address',
         self::COUNTER_32   => 'counter32',
