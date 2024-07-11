@@ -27,8 +27,6 @@
         "ext-gmp": "*",
         "ext-json": "*",
         "gipfl/json": ">=0.2",
-        "react/datagram": ">=1.4",
-        "revolt/event-loop": "^1",
         "sop/asn1": "^4"
     },
     "require-dev": {
