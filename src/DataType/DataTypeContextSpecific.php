@@ -8,6 +8,19 @@ use Sop\ASN1\Type\Primitive\NullType;
 use Sop\ASN1\Type\Tagged\ImplicitlyTaggedType;
 use Sop\ASN1\Type\UnspecifiedType;
 
+/**
+ *
+ * From RFC2089:
+ *
+ * - For SNMP GET requests we can get back noSuchObject and noSuchInstance
+ * - For SNMP GETNEXT requests we can get back endOfMibView
+ * - For SNMP SET requests we cannot get back any exceptions
+ *
+ *
+ * - For SNMP GETBULK requests we can get back endOfMibView, but such a request should only come in as an SNMPv2
+ *   request, so we do not have to worry about any mapping onto SNMPv1. If a GETBULK comes in as an SNMPv1 request, it
+ *   is treated as an error and the packet is dropped
+ */
 class DataTypeContextSpecific extends DataType
 {
     public const NO_SUCH_OBJECT = 0;
@@ -27,11 +40,16 @@ class DataTypeContextSpecific extends DataType
         $this->tag = $rawValue;
     }
 
+    public function getReadableValue(): string
+    {
+        return '[ ' . self::$errorMessages[$this->tag] . ' ]';
+    }
+
     public function jsonSerialize(): array
     {
         return [
             'type'  => 'context_specific',
-            'value' => $this->rawValue,
+            'value' => $this->tag,
         ];
     }
 
