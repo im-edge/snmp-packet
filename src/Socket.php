@@ -10,7 +10,7 @@ use gipfl\Protocol\Snmp\DataType\DataTypeContextSpecific;
 use React\EventLoop\Loop;
 use React\EventLoop\TimerInterface;
 use React\Promise\Deferred;
-use React\Promise\ExtendedPromiseInterface;
+use React\Promise\PromiseInterface;
 use React\Datagram\Socket as DatagramSocket;
 use RuntimeException;
 use Throwable;
@@ -58,7 +58,7 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
         array $oidList,
         string $target,
         #[\SensitiveParameter] string $community
-    ): ExtendedPromiseInterface {
+    ): PromiseInterface {
         $id = $this->idGenerator->getNextId();
         $varBinds = $this->prepareAndScheduleOidList($id, $oidList);
         $request = new SnmpV2Message($community, new GetRequest($varBinds, $id));
@@ -73,7 +73,7 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
         array $oidList,
         string $ip,
         #[\SensitiveParameter] string $community
-    ): ExtendedPromiseInterface {
+    ): PromiseInterface {
         $requestedOidList = [];
         foreach ($oidList as $oid) {
             $requestedOidList[$oid] = null;
@@ -90,7 +90,7 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
         string $target,
         #[\SensitiveParameter] string $community,
         int $maxRepetitions = 10
-    ): ExtendedPromiseInterface {
+    ): PromiseInterface {
         $id = $this->idGenerator->getNextId();
         $varBinds = $this->prepareAndScheduleOidList($id, [$oid => null]);
         $request = new SnmpV2Message($community, new GetBulkRequest($varBinds, $id, $maxRepetitions));
@@ -104,7 +104,7 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
         #[\SensitiveParameter] string $community,
         ?int $limit = null,
         ?string $nextOid = null
-    ): ExtendedPromiseInterface {
+    ): PromiseInterface {
         $walk = new Walk($this, $limit);
         if ($nextOid !== null) {
             $walk->setNextOid($nextOid);
@@ -121,7 +121,7 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
         array $columns,
         SocketAddress|string $target,
         #[\SensitiveParameter] string $community
-    ): ExtendedPromiseInterface {
+    ): PromiseInterface {
         $fetchTable = new FetchTable($this);
         return $fetchTable->fetchTable($oid, $columns, SocketAddress::detect($target), $community);
     }
@@ -131,7 +131,7 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
         string $ip,
         string $community,
         int $maxRepetitions = 10
-    ): ExtendedPromiseInterface {
+    ): PromiseInterface {
         // TODO: Multiple OIDs
         $results = [];
         $deferred = new Deferred();
@@ -172,10 +172,7 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
         $this->getBulk($oid, $ip, $community, $maxRepetitions)
             ->then($handle, $error);
 
-        $promise = $deferred->promise();
-        assert($promise instanceof ExtendedPromiseInterface);
-
-        return $promise;
+        return $deferred->promise();
     }
 
     public function sendTrap(SnmpMessage $trap, SocketAddress|string $destination): void
@@ -188,7 +185,7 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
         return isset($this->pendingRequests[$id]);
     }
 
-    protected function send(SnmpMessage $message, SocketAddress|string $destination): ExtendedPromiseInterface
+    public function send(SnmpMessage $message, SocketAddress|string $destination): PromiseInterface
     {
         $pdu = $message->getPdu();
         $wantsResponse = $pdu->wantsResponse();
@@ -202,9 +199,9 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
             $this->scheduleTimeout($id);
             $result = $deferred->promise();
         } else {
-            $result = resolve();
+            $result = resolve(true);
         }
-        assert($result instanceof ExtendedPromiseInterface);
+        assert($result instanceof PromiseInterface);
 
         $this->socket()->send($message->toBinary(), SocketAddress::detect($destination, 161));
 
@@ -235,7 +232,7 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
                 unset($this->pendingRequests[$id]);
                 unset($this->pendingRequestOidLists[$id]);
                 unset($this->timers[$id]);
-                $deferred->reject('Timeout'); // TODO: ErrorStatus, Exception?
+                $deferred->reject(new Exception('Timeout')); // TODO: ErrorStatus, Exception?
             }
         });
     }
