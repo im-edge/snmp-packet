@@ -38,7 +38,9 @@ class Unsigned32 extends DataType
 
     public static function fromASN1(UnspecifiedType $element): static
     {
-        return new static($element->asInteger()->intNumber());
+        return new static(
+            $element->asApplication()->asImplicit(Element::TYPE_INTEGER, static::TAG)->asInteger()->intNumber()
+        );
     }
 
     public function toASN1(): Element
