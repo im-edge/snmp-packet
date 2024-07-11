@@ -289,6 +289,15 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
         $requestId = $pdu->requestId;
         if ($requestId !== null && isset($this->pendingRequests[$requestId])) {
             $deferred = $this->pendingRequests[$requestId];
+            unset($this->pendingRequests[$requestId]);
+            // TODO: workaround for weird behaviour, double-check this:
+            if (! isset($this->pendingRequestOidLists[$requestId])) {
+                Loop::cancelTimer($this->timers[$requestId]);
+                unset($this->timers[$requestId]);
+                $deferred->resolve($message);
+                return;
+            }
+            // TODO: end of workaround
             $oidList = $this->pendingRequestOidLists[$requestId];
             $this->clearPendingRequest($requestId);
             if ($pdu->isError()) {
@@ -313,6 +322,9 @@ class Socket implements EventEmitterInterface, RequestIdConsumer
                 $deferred->resolve($result);
             }
         } else {
+            // TODO: echo for now, we need a logger instance
+            echo "Ignoring:\n";
+            SnmpMessageInspector::dump($message);
             // TODO: Logger::debug("Ignoring response for unknown requestId=$requestId");
         }
     }
