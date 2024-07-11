@@ -1,5 +1,5 @@
 {
-    "name": "imedge/protocol-snmp",
+    "name": "imedge/snmp",
     "description": "SNMP protocol implementation",
     "type": "library",
     "license": "MIT",
@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "IMEdge\\Protocol\\Snmp\\": "src"
+            "IMEdge\\Snmp\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "IMEdge\\Tests\\Protocol\\Snmp\\": "tests/"
+            "IMEdge\\Tests\\Snmp\\": "tests/"
         }
     },
     "require": {

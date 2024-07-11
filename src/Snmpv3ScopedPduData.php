@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp;
+namespace IMEdge\Snmp;
 
 use Sop\ASN1\Type\TaggedType;
 

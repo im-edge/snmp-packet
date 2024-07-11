@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp;
+namespace IMEdge\Snmp;
 
 interface RequestIdConsumer
 {

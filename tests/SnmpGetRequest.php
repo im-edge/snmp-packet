@@ -1,11 +1,11 @@
 <?php
 
-namespace IMEdge\Tests\Protocol\Snmp;
+namespace IMEdge\Tests\Snmp;
 
-use IMEdge\Protocol\Snmp\GetRequest;
-use IMEdge\Protocol\Snmp\SnmpMessage;
-use IMEdge\Protocol\Snmp\SnmpV1Message;
-use IMEdge\Protocol\Snmp\SnmpV2Message;
+use IMEdge\Snmp\GetRequest;
+use IMEdge\Snmp\SnmpMessage;
+use IMEdge\Snmp\SnmpV1Message;
+use IMEdge\Snmp\SnmpV2Message;
 use PHPUnit\Framework\TestCase;
 
 abstract class SnmpGetRequest extends TestCase

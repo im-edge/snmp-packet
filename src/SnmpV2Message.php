@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp;
+namespace IMEdge\Snmp;
 
 class SnmpV2Message extends SnmpV1Message
 {

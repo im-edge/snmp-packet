@@ -1,8 +1,8 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp;
+namespace IMEdge\Snmp;
 
-use IMEdge\Protocol\Snmp\Usm\UserBasedSecurityModel;
+use IMEdge\Snmp\Usm\UserBasedSecurityModel;
 use Sop\ASN1\Type\Constructed\Sequence;
 use Sop\ASN1\Type\Primitive\Integer;
 use Sop\ASN1\Type\Primitive\OctetString;

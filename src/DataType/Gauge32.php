@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp\DataType;
+namespace IMEdge\Snmp\DataType;
 
 class Gauge32 extends Unsigned32
 {

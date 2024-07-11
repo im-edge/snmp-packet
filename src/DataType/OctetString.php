@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp\DataType;
+namespace IMEdge\Snmp\DataType;
 
 use Sop\ASN1\Element;
 use Sop\ASN1\Type\UnspecifiedType;

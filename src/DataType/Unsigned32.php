@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp\DataType;
+namespace IMEdge\Snmp\DataType;
 
 use InvalidArgumentException;
 use Sop\ASN1\Element;

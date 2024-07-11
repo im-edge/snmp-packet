@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp\Usm;
+namespace IMEdge\Snmp\Usm;
 
 use function floor;
 use function hash;

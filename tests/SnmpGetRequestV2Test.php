@@ -1,8 +1,8 @@
 <?php
 
-namespace IMEdge\Tests\Protocol\Snmp;
+namespace IMEdge\Tests\Snmp;
 
-use IMEdge\Protocol\Snmp\SnmpV2Message;
+use IMEdge\Snmp\SnmpV2Message;
 
 class SnmpGetRequestV2Test extends SnmpGetRequest
 {

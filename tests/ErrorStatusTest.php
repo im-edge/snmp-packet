@@ -1,8 +1,8 @@
 <?php
 
-namespace IMEdge\Tests\Protocol\Snmp;
+namespace IMEdge\Tests\Snmp;
 
-use IMEdge\Protocol\Snmp\ErrorStatus;
+use IMEdge\Snmp\ErrorStatus;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 

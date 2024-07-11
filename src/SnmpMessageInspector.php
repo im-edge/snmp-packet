@@ -1,8 +1,8 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp;
+namespace IMEdge\Snmp;
 
-use IMEdge\Protocol\Snmp\Usm\UserBasedSecurityModel;
+use IMEdge\Snmp\Usm\UserBasedSecurityModel;
 
 class SnmpMessageInspector
 {

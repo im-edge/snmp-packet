@@ -1,9 +1,9 @@
 <?php
 
-namespace IMEdge\Tests\Protocol\Snmp;
+namespace IMEdge\Tests\Snmp;
 
-use IMEdge\Protocol\Snmp\DataType\Counter64;
-use IMEdge\Protocol\Snmp\DataType\DataType;
+use IMEdge\Snmp\DataType\Counter64;
+use IMEdge\Snmp\DataType\DataType;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Sop\ASN1\Component\Identifier;

@@ -1,9 +1,9 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp;
+namespace IMEdge\Snmp;
 
-use IMEdge\Protocol\Snmp\DataType\DataType;
-use IMEdge\Protocol\Snmp\DataType\NullType;
+use IMEdge\Snmp\DataType\DataType;
+use IMEdge\Snmp\DataType\NullType;
 use InvalidArgumentException;
 use Sop\ASN1\Type\Constructed\Sequence;
 use Sop\ASN1\Type\Primitive\ObjectIdentifier;

@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp;
+namespace IMEdge\Snmp;
 
 use InvalidArgumentException;
 use Sop\ASN1\Type\Constructed\Sequence;

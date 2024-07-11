@@ -1,12 +1,12 @@
 <?php
 
-namespace IMEdge\Tests\Protocol\Snmp;
+namespace IMEdge\Tests\Snmp;
 
-use IMEdge\Protocol\Snmp\GetRequest;
-use IMEdge\Protocol\Snmp\Snmpv3Header;
-use IMEdge\Protocol\Snmp\SnmpV3Message;
-use IMEdge\Protocol\Snmp\Snmpv3ScopedPdu;
-use IMEdge\Protocol\Snmp\Usm\AuthKey;
+use IMEdge\Snmp\GetRequest;
+use IMEdge\Snmp\Snmpv3Header;
+use IMEdge\Snmp\SnmpV3Message;
+use IMEdge\Snmp\Snmpv3ScopedPdu;
+use IMEdge\Snmp\Usm\AuthKey;
 use PHPUnit\Framework\TestCase;
 
 class SnmpGetRequestV3Test extends TestCase

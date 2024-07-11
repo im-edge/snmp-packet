@@ -1,8 +1,8 @@
 <?php
 
-namespace IMEdge\Protocol\Snmp\Usm;
+namespace IMEdge\Snmp\Usm;
 
-use IMEdge\Protocol\Snmp\SnmpV3Message;
+use IMEdge\Snmp\SnmpV3Message;
 
 class MessageAuthenticator
 {
