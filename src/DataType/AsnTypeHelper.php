@@ -6,7 +6,7 @@ use GMP;
 use InvalidArgumentException;
 use Stringable;
 
-class AsnTypeHelper
+final class AsnTypeHelper
 {
     public static function wantGmpIntString(mixed $value): GMP|int|string
     {
