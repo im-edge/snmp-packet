@@ -2,12 +2,16 @@
 
 namespace gipfl\Protocol\Snmp;
 
-use Sop\ASN1\Type\Constructed\Sequence;
+use Sop\ASN1\Type\TaggedType;
 
 class Snmpv3ScopedPduData
 {
-    // Hint: Sequence might not be correct. Or is it a CHOICE?
-    public static function fromAsn1(Sequence $sequence): static
+    public function __construct(
+        public Pdu $pdu,
+    ) {
+    }
+
+    public static function fromAsn1(TaggedType $tagged): static
     {
         // ScopedPduData ::= CHOICE {
         //   plaintext    ScopedPDU,
@@ -15,6 +19,6 @@ class Snmpv3ScopedPduData
         // }
 
         /** @phpstan-ignore-next-line */
-        return null;
+        return new Snmpv3ScopedPduData(Pdu::fromASN1($tagged));
     }
 }

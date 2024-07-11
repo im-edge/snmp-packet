@@ -3,6 +3,7 @@
 namespace gipfl\Protocol\Snmp;
 
 use Sop\ASN1\Type\Constructed\Sequence;
+use Sop\ASN1\Type\Primitive\OctetString;
 
 class Snmpv3ScopedPdu
 {
@@ -11,6 +12,15 @@ class Snmpv3ScopedPdu
         protected string $contextEngineId,
         protected string $contextName
     ) {
+    }
+
+    public function toASN1(): Sequence
+    {
+        return new Sequence(
+            new OctetString($this->contextEngineId),
+            new OctetString($this->contextName),
+            $this->pdu->toASN1(),
+        );
     }
 
     public static function fromAsn1(Sequence $sequence): static
@@ -23,7 +33,7 @@ class Snmpv3ScopedPdu
         return new static(
             Pdu::fromASN1($sequence->at(2)->asTagged()),
             $sequence->at(0)->asOctetString(),
-            $sequence->at(0)->asOctetString()
+            $sequence->at(1)->asOctetString()
         );
     }
 }

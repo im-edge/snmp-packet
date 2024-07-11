@@ -11,9 +11,11 @@ use function strlen;
 
 class Snmpv3Header
 {
+    protected const REPORTABLE_FLAG = "\x04";
+
     final public function __construct(
-        protected int $messageId,   // 0..2147483647
-        protected int $maxSize,     // 484..2147483647
+        public readonly int $messageId,   // 0..2147483647
+        public readonly int $maxSize = 65507,     // 484..2147483647 -> 65507?
         /**
          * msgSecurityModel
          *
@@ -26,11 +28,7 @@ class Snmpv3Header
          * securityModel implementation within an SNMP engine is accomplished in
          * an implementation-dependent manner.
          */
-        protected int $securityModel,
-        /**
-         * Single character, one of SnmpV3Message::SECURITY_*
-         */
-        protected string $securityFlags,
+        public readonly SnmpSecurityLevel $securityFlags = SnmpSecurityLevel::NO_AUTH_NO_PRIV,
         /**
          * see https://tools.ietf.org/html/rfc3412#section-6.4
          *
@@ -39,9 +37,9 @@ class Snmpv3Header
          * incorrect encryption key. If the PDU can be decoded, the PDU type forms
          * the basis for decisions on sending Report PDUs.
          */
-        protected bool $reportableFlag = false
+        public readonly bool $reportableFlag = false,
+        public readonly SecurityModel $securityModel = SecurityModel::USM,
     ) {
-        $this->assertValidSecurityFlags($securityFlags);
     }
 
     public function assertValidSecurityFlags(string $flags): void
@@ -59,13 +57,13 @@ class Snmpv3Header
 
     public function toASN1(): Sequence
     {
-        $flags = ($this->reportableFlag ? "\x01" : "\x00") . $this->securityFlags;
+        $flags = ($this->reportableFlag ? "\x04" : "\x00") | $this->securityFlags->toBinary();
 
         return new Sequence(
             new Integer($this->messageId),
             new Integer($this->maxSize),
             new OctetString($flags),
-            new Integer($this->securityModel)
+            new Integer($this->securityModel->value)
         );
     }
 
@@ -79,15 +77,12 @@ class Snmpv3Header
             ));
         }
 
-        $securityLevel = $flags & "\x03";
-        $report = ($flags & "\x04") === "\x01\x00";
-
         return new static(
             $sequence->at(0)->asInteger()->intNumber(),
             $sequence->at(1)->asInteger()->intNumber(),
-            $sequence->at(3)->asInteger()->intNumber(),
-            $securityLevel,
-            $report
+            SnmpSecurityLevel::fromBinaryFlag($flags & "\x03"),
+            ($flags & "\x04") === "\x04",
+            SecurityModel::from($sequence->at(3)->asInteger()->intNumber()),
         );
         // from rfc3412#page-19:
         // msgID      INTEGER (0..2147483647),
