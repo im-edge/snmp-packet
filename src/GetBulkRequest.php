@@ -1,6 +1,6 @@
 <?php
 
-namespace gipfl\Protocol\Snmp;
+namespace IMEdge\Protocol\Snmp;
 
 use RuntimeException;
 use Sop\ASN1\Type\Constructed\Sequence;

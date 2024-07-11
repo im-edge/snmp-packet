@@ -1,8 +1,8 @@
 <?php
 
-namespace gipfl\Protocol\Snmp\Usm;
+namespace IMEdge\Protocol\Snmp\Usm;
 
-use gipfl\Protocol\Snmp\Snmpv3SecurityParameters;
+use IMEdge\Protocol\Snmp\Snmpv3SecurityParameters;
 use Sop\ASN1\Type\Primitive\OctetString;
 
 class NoSecurityModel implements Snmpv3SecurityParameters

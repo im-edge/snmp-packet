@@ -1,6 +1,6 @@
 <?php
 
-namespace gipfl\Protocol\Snmp;
+namespace IMEdge\Protocol\Snmp;
 
 class SnmpV2Message extends SnmpV1Message
 {

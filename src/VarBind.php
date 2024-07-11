@@ -1,9 +1,9 @@
 <?php
 
-namespace gipfl\Protocol\Snmp;
+namespace IMEdge\Protocol\Snmp;
 
-use gipfl\Protocol\Snmp\DataType\DataType;
-use gipfl\Protocol\Snmp\DataType\NullType;
+use IMEdge\Protocol\Snmp\DataType\DataType;
+use IMEdge\Protocol\Snmp\DataType\NullType;
 use InvalidArgumentException;
 use Sop\ASN1\Type\Constructed\Sequence;
 use Sop\ASN1\Type\Primitive\ObjectIdentifier;

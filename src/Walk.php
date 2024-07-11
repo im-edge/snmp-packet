@@ -1,9 +1,9 @@
 <?php
 
-namespace gipfl\Protocol\Snmp;
+namespace IMEdge\Protocol\Snmp;
 
-use gipfl\Protocol\Snmp\DataType\DataType;
-use gipfl\Protocol\Snmp\DataType\DataTypeContextSpecific;
+use IMEdge\Protocol\Snmp\DataType\DataType;
+use IMEdge\Protocol\Snmp\DataType\DataTypeContextSpecific;
 use React\EventLoop\Loop;
 use React\Promise\Deferred;
 use React\Promise\ExtendedPromiseInterface;

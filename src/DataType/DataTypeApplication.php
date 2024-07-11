@@ -1,6 +1,6 @@
 <?php
 
-namespace gipfl\Protocol\Snmp\DataType;
+namespace IMEdge\Protocol\Snmp\DataType;
 
 use InvalidArgumentException;
 use Sop\ASN1\Component\Identifier;

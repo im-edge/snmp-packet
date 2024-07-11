@@ -1,8 +1,8 @@
 <?php
 
-namespace gipfl\Protocol\Snmp\Usm;
+namespace IMEdge\Protocol\Snmp\Usm;
 
-use gipfl\Protocol\Snmp\SnmpV3Message;
+use IMEdge\Protocol\Snmp\SnmpV3Message;
 
 class MessageAuthenticator
 {

@@ -1,17 +1,17 @@
-gipfl\\Snmp - SNMP library
-==========================
+IMEdge\\Protocol\\Snmp - SNMP library
+=====================================
 
 SNMP protocol implementation in raw PHP for async usage. API is still subject
-to change, SNMPv3 is currently missing, but will be implemented.
+to change, SNMPv3 authentication is ready, encryption will follow soon
 
 
-[![Coding Standards](https://github.com/gipfl/protocol-snmp/actions/workflows/CodingStandards.yml/badge.svg)](https://github.com/gipfl/protocol-snmp/actions/workflows/CodingStandards.yml)
-[![Unit Tests](https://github.com/gipfl/protocol-snmp/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/gipfl/protocol-snmp/actions/workflows/UnitTests.yml)
-[![Static Analysis](https://github.com/gipfl/protocol-snmp/actions/workflows/StaticAnalysis.yml/badge.svg)](https://github.com/gipfl/protocol-snmp/actions/workflows/StaticAnalysis.yml)
+[![Coding Standards](https://github.com/im-edge/protocol-snmp/actions/workflows/CodingStandards.yml/badge.svg)](https://github.com/im-edge/protocol-snmp/actions/workflows/CodingStandards.yml)
+[![Unit Tests](https://github.com/im-edge/protocol-snmp/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/im-edge/protocol-snmp/actions/workflows/UnitTests.yml)
+[![Static Analysis](https://github.com/im-edge/protocol-snmp/actions/workflows/StaticAnalysis.yml/badge.svg)](https://github.com/im-edge/protocol-snmp/actions/workflows/StaticAnalysis.yml)
 [![PHPStan Level 9](https://img.shields.io/badge/PHPStan-level%209-brightgreen.svg?style=flat)](https://phpstan.org/)
 [![Minimum PHP Version: 8.1](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF.svg)](https://php.net/)
-[![License: MIT](https://poser.pugx.org/gipfl/protocol-snmp/license)](https://choosealicense.com/licenses/mit/)
-[![Version](https://poser.pugx.org/gipfl/protocol-snmp/version)](https://packagist.org/packages/gipfl/protocol-snmp)
+[![License: MIT](https://poser.pugx.org/imedge/protocol-snmp/license)](https://choosealicense.com/licenses/mit/)
+[![Version](https://poser.pugx.org/imedge/protocol-snmp/version)](https://packagist.org/packages/imedge/protocol-snmp)
 
 
 Usage

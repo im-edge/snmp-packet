@@ -1,6 +1,6 @@
 <?php
 
-namespace gipfl\Protocol\Snmp\DataType;
+namespace IMEdge\Protocol\Snmp\DataType;
 
 use Sop\ASN1\Element;
 use Sop\ASN1\Type\Primitive\Integer;

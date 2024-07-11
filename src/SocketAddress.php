@@ -1,6 +1,6 @@
 <?php
 
-namespace gipfl\Protocol\Snmp;
+namespace IMEdge\Protocol\Snmp;
 
 use gipfl\Json\JsonSerialization;
 use InvalidArgumentException;

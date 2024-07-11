@@ -1,8 +1,8 @@
 <?php
 
-namespace gipfl\Protocol\Snmp;
+namespace IMEdge\Protocol\Snmp;
 
-use gipfl\Protocol\Snmp\Usm\UserBasedSecurityModel;
+use IMEdge\Protocol\Snmp\Usm\UserBasedSecurityModel;
 
 class SnmpMessageInspector
 {

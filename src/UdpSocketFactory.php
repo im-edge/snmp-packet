@@ -1,6 +1,6 @@
 <?php
 
-namespace gipfl\Protocol\Snmp;
+namespace IMEdge\Protocol\Snmp;
 
 use React\EventLoop\Loop;
 use React\Datagram\Socket as DatagramSocket;

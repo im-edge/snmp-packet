@@ -1,8 +1,8 @@
 <?php
 
-namespace gipfl\Protocol\Snmp;
+namespace IMEdge\Protocol\Snmp;
 
-use gipfl\Protocol\Snmp\Usm\UserBasedSecurityModel;
+use IMEdge\Protocol\Snmp\Usm\UserBasedSecurityModel;
 use Sop\ASN1\Type\Constructed\Sequence;
 use Sop\ASN1\Type\Primitive\Integer;
 use Sop\ASN1\Type\Primitive\OctetString;

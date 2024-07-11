@@ -1,6 +1,6 @@
 <?php
 
-namespace gipfl\Protocol\Snmp\DataType;
+namespace IMEdge\Protocol\Snmp\DataType;
 
 use GMP;
 use InvalidArgumentException;

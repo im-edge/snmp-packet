@@ -1,6 +1,6 @@
 <?php
 
-namespace gipfl\Protocol\Snmp\Usm;
+namespace IMEdge\Protocol\Snmp\Usm;
 
 use function floor;
 use function hash;
