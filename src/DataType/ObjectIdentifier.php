@@ -8,7 +8,8 @@ use Sop\ASN1\Type\Primitive\ObjectIdentifier as AsnType;
 
 class ObjectIdentifier extends DataType
 {
-    protected int $tag = Element::TYPE_OBJECT_IDENTIFIER;
+    public const TAG = Element::TYPE_OBJECT_IDENTIFIER;
+    protected int $tag = self::TAG;
 
     public static function fromString(string $oid): ObjectIdentifier
     {

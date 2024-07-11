@@ -9,7 +9,8 @@ use Sop\ASN1\Type\UnspecifiedType;
 
 class Unsigned32 extends DataType
 {
-    protected int $tag = self::UNSIGNED_32;
+    public const TAG = self::UNSIGNED_32;
+    protected int $tag = self::TAG;
 
     final public function __construct(int $int)
     {
@@ -30,7 +31,7 @@ class Unsigned32 extends DataType
     public function jsonSerialize(): array
     {
         return [
-            'type'  => self::TYPE_TO_NAME_MAP[$this->tag],
+            'type'  => self::TYPE_TO_NAME_MAP[static::TAG],
             'value' => $this->rawValue,
         ];
     }

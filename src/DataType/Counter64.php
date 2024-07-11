@@ -10,7 +10,8 @@ use Sop\ASN1\Type\UnspecifiedType;
 
 class Counter64 extends DataType
 {
-    protected int $tag = self::COUNTER_64;
+    public const TAG = self::COUNTER_64;
+    protected int $tag = self::TAG;
 
     final protected function __construct(ApplicationType $app)
     {

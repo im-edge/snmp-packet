@@ -4,5 +4,6 @@ namespace gipfl\Protocol\Snmp\DataType;
 
 class TimeTicks extends Unsigned32
 {
-    protected int $tag = self::TIME_TICKS;
+    public const TAG = self::TIME_TICKS;
+    protected int $tag = self::TAG;
 }
