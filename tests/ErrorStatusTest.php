@@ -1,8 +1,8 @@
 <?php
 
-namespace gipfl\Tests\Protocol\Snmp;
+namespace IMEdge\Tests\Protocol\Snmp;
 
-use gipfl\Protocol\Snmp\ErrorStatus;
+use IMEdge\Protocol\Snmp\ErrorStatus;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 

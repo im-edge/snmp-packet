@@ -1,12 +1,12 @@
 <?php
 
-namespace gipfl\Tests\Protocol\Snmp;
+namespace IMEdge\Tests\Protocol\Snmp;
 
-use gipfl\Protocol\Snmp\GetRequest;
-use gipfl\Protocol\Snmp\Snmpv3Header;
-use gipfl\Protocol\Snmp\SnmpV3Message;
-use gipfl\Protocol\Snmp\Snmpv3ScopedPdu;
-use gipfl\Protocol\Snmp\Usm\AuthKey;
+use IMEdge\Protocol\Snmp\GetRequest;
+use IMEdge\Protocol\Snmp\Snmpv3Header;
+use IMEdge\Protocol\Snmp\SnmpV3Message;
+use IMEdge\Protocol\Snmp\Snmpv3ScopedPdu;
+use IMEdge\Protocol\Snmp\Usm\AuthKey;
 use PHPUnit\Framework\TestCase;
 
 class SnmpGetRequestV3Test extends TestCase

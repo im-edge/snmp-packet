@@ -1,8 +1,8 @@
 <?php
 
-namespace gipfl\Tests\Protocol\Snmp;
+namespace IMEdge\Tests\Protocol\Snmp;
 
-use gipfl\Protocol\Snmp\SnmpV1Message;
+use IMEdge\Protocol\Snmp\SnmpV1Message;
 
 class SnmpGetRequestV1Test extends SnmpGetRequest
 {
