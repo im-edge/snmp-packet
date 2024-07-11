@@ -15,7 +15,7 @@ class SimpleRequestIdGenerator
     public function getNextId(): int
     {
         while (true) {
-            $id = rand(1, 1000000000);
+            $id = rand(1, 1_000_000_000);
             foreach ($this->consumers as $consumer) {
                 if ($consumer->hasId($id)) {
                     continue 2;
