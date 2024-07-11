@@ -1,7 +1,7 @@
 <?php
 
-use gipfl\Protocol\Snmp\DataType\DataType;
-use gipfl\Protocol\Snmp\Socket;
+use IMEdge\Protocol\Snmp\DataType\DataType;
+use IMEdge\Protocol\Snmp\Socket;
 use React\EventLoop\Loop;
 
 require dirname(__DIR__) . '/vendor/autoload.php';

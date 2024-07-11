@@ -1,13 +1,13 @@
 <?php
 
-use gipfl\Protocol\Snmp\DataType\Integer32;
-use gipfl\Protocol\Snmp\DataType\ObjectIdentifier;
-use gipfl\Protocol\Snmp\DataType\OctetString;
-use gipfl\Protocol\Snmp\DataType\TimeTicks;
-use gipfl\Protocol\Snmp\Socket;
-use gipfl\Protocol\Snmp\SnmpV2Message;
-use gipfl\Protocol\Snmp\TrapV2;
-use gipfl\Protocol\Snmp\VarBind;
+use IMEdge\Protocol\Snmp\DataType\Integer32;
+use IMEdge\Protocol\Snmp\DataType\ObjectIdentifier;
+use IMEdge\Protocol\Snmp\DataType\OctetString;
+use IMEdge\Protocol\Snmp\DataType\TimeTicks;
+use IMEdge\Protocol\Snmp\Socket;
+use IMEdge\Protocol\Snmp\SnmpV2Message;
+use IMEdge\Protocol\Snmp\TrapV2;
+use IMEdge\Protocol\Snmp\VarBind;
 use React\EventLoop\Loop;
 
 const TRAP_OID = '1.3.6.1.6.3.1.1.4.1';

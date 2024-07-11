@@ -1,9 +1,9 @@
 <?php
 
-use gipfl\Protocol\Snmp\Socket;
-use gipfl\Protocol\Snmp\SnmpMessage;
-use gipfl\Protocol\Snmp\SnmpMessageInspector;
-use gipfl\Protocol\Snmp\SocketAddress;
+use IMEdge\Protocol\Snmp\Socket;
+use IMEdge\Protocol\Snmp\SnmpMessage;
+use IMEdge\Protocol\Snmp\SnmpMessageInspector;
+use IMEdge\Protocol\Snmp\SocketAddress;
 use React\EventLoop\Loop;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
