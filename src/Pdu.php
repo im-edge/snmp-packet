@@ -60,7 +60,7 @@ abstract class Pdu
     public function toASN1(): ImplicitlyTaggedType
     {
         if ($this->requestId === null) {
-            throw new RuntimeException('Cannot created ASN1 type w/o requiestId');
+            throw new RuntimeException('Cannot created ASN1 type w/o requestId');
         }
         return new ImplicitlyTaggedType($this->getTag(), new Sequence(
             new Integer($this->requestId),
