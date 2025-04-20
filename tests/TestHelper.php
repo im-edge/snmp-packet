@@ -2,11 +2,18 @@
 
 namespace IMEdge\Tests\Snmp;
 
+use InvalidArgumentException;
+
 class TestHelper
 {
     public static function unHex(string $string): string
     {
-        return hex2bin(str_replace(' ', '', $string));
+        $bin = hex2bin(str_replace(' ', '', $string));
+        if ($bin === false) {
+            throw new InvalidArgumentException("Unable to unHex: $string");
+        }
+
+        return $bin;
     }
 
     public static function niceHex(mixed $string): string
