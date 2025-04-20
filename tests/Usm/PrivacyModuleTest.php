@@ -13,6 +13,9 @@ class PrivacyModuleTest extends TestCase
 {
     public function testDecryptMd5DesSamplePacket(): void
     {
+        if (! in_array('des-cbc', openssl_get_cipher_methods())) {
+            $this->markTestSkipped('This platform does not support the DES protocol');
+        }
         $module = new PrivacyModule(
             'notsecure1',
             TestHelper::unHex('80 00 1f 88 80 1e ce 80 47 02 bb 09 64 00 00 00 00'),
