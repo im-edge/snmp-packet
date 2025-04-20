@@ -2,6 +2,8 @@
 
 namespace IMEdge\Snmp\Usm;
 
+use IMEdge\Snmp\SnmpAuthProtocol;
+
 use function floor;
 use function hash;
 use function str_repeat;
@@ -10,22 +12,22 @@ use function substr;
 
 class AuthKey
 {
-    protected const WTF_LENGTH = 1048576;
+    protected const MEGA_BYTE = 1048576;
 
-    public static function intermediate(string $algo, string $pass): string
+    public static function generate(SnmpAuthProtocol $authProtocol, string $pass, string $engineId): string
     {
-        return hash($algo, self::largeString($pass), true);
+        $intermediate = self::intermediate($authProtocol, $pass);
+        return hash($authProtocol->getHashAlgorithm(), $intermediate . $engineId . $intermediate, true);
     }
 
-    protected static function largeString(string $string): string
+    public static function fillOneMegaByte(string $string): string
     {
-        return str_repeat($string, (int) floor(self::WTF_LENGTH / strlen($string)))
-            . substr($string, 0, self::WTF_LENGTH % strlen($string));
+        return str_repeat($string, (int) floor(self::MEGA_BYTE / strlen($string)))
+            . substr($string, 0, self::MEGA_BYTE % strlen($string));
     }
 
-    public static function hash(string $algo, string $pass, string $engineId): string
+    public static function intermediate(SnmpAuthProtocol $authProtocol, string $pass): string
     {
-        $intermediate = self::intermediate($algo, $pass);
-        return hash($algo, $intermediate . $engineId . $intermediate, true);
+        return hash($authProtocol->getHashAlgorithm(), self::fillOneMegaByte($pass), true);
     }
 }
