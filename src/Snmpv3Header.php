@@ -12,6 +12,8 @@ use function strlen;
 class Snmpv3Header
 {
     protected const REPORTABLE_FLAG = "\x04";
+    protected const NO_FLAG = "\x00";
+    protected const SECURITY_LEVEL_FILTER = "\x03";
 
     final public function __construct(
         public readonly int $messageId,   // 0..2147483647
@@ -42,22 +44,9 @@ class Snmpv3Header
     ) {
     }
 
-    public function assertValidSecurityFlags(string $flags): void
-    {
-        // authFlag = false & privFlag = false => noAuthNoPriv
-        // authFlag = false & privFlag = true => invalid combination
-        // authFlag = true & privFlag = true => authNoPriv
-        // authFlag = true & privFlag = true => authPriv
-        if (($flags & "\x11") === "\x10") {
-            throw new InvalidArgumentException(
-                'Invalid combination, priv without auth message flag'
-            );
-        }
-    }
-
     public function toASN1(): Sequence
     {
-        $flags = ($this->reportableFlag ? "\x04" : "\x00") | $this->securityFlags->toBinary();
+        $flags = ($this->reportableFlag ? self::REPORTABLE_FLAG : self::NO_FLAG) | $this->securityFlags->toBinary();
 
         return new Sequence(
             new Integer($this->messageId),
@@ -80,8 +69,8 @@ class Snmpv3Header
         return new static(
             $sequence->at(0)->asInteger()->intNumber(),
             $sequence->at(1)->asInteger()->intNumber(),
-            SnmpSecurityLevel::fromBinaryFlag($flags & "\x03"),
-            ($flags & "\x04") === "\x04",
+            SnmpSecurityLevel::fromBinaryFlag($flags & self::SECURITY_LEVEL_FILTER),
+            ($flags & self::REPORTABLE_FLAG) === self::REPORTABLE_FLAG,
             SecurityModel::from($sequence->at(3)->asInteger()->intNumber()),
         );
         // from rfc3412#page-19:
