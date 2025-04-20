@@ -25,7 +25,7 @@ enum SnmpSecurityLevel: string
         return match ($this) {
             self::NO_AUTH_NO_PRIV => "\x00",
             self::AUTH_NO_PRIV => "\x01",
-            self::AUTH_PRIV => "\x11",
+            self::AUTH_PRIV => "\x03",
         };
     }
 
@@ -34,7 +34,7 @@ enum SnmpSecurityLevel: string
         return match ($binary) {
             "\x00" => SnmpSecurityLevel::NO_AUTH_NO_PRIV,
             "\x01" => SnmpSecurityLevel::AUTH_NO_PRIV,
-            "\x11" => SnmpSecurityLevel::AUTH_PRIV,
+            "\x03" => SnmpSecurityLevel::AUTH_PRIV,
             default => throw new InvalidArgumentException(sprintf(
                 "'%s' is not a valid SNMPv3 security level",
                 $binary
