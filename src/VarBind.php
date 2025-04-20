@@ -50,7 +50,11 @@ class VarBind
         foreach ($sequence as $idx => $varBind) {
             try {
                 $s = $varBind->asSequence();
-                $list[] = VarBind::fromASN1($s);
+                $object = VarBind::fromASN1($s);
+                if (isset($list[$object->oid])) {
+                    throw new UnexpectedValueException('Got OID twice: ' . $object->oid);
+                }
+                $list[$object->oid] = $object;
             } catch (UnexpectedValueException $e) {
                 throw new InvalidArgumentException(sprintf(
                     "Can't decode Variable Binding %d: %s",

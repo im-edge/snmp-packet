@@ -30,7 +30,7 @@ abstract class Pdu
      * @param VarBind[] $varBinds
      */
     public function __construct(
-        public readonly array $varBinds,
+        public readonly array $varBinds = [],
         public ?int $requestId = null
     ) {
     }
@@ -40,6 +40,11 @@ abstract class Pdu
     public function wantsResponse(): bool
     {
         return $this->wantsResponse;
+    }
+
+    public function hasOid(string $oid): bool
+    {
+        return isset($this->varBinds[$oid]);
     }
 
     public function isError(): bool
