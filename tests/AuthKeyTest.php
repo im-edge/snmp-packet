@@ -2,8 +2,8 @@
 
 namespace IMEdge\Tests\Snmp;
 
-use IMEdge\Snmp\SnmpAuthProtocol;
 use IMEdge\Snmp\Usm\AuthKey;
+use IMEdge\Snmp\Usm\SnmpAuthProtocol;
 use PHPUnit\Framework\TestCase;
 
 class AuthKeyTest extends TestCase

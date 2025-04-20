@@ -2,8 +2,6 @@
 
 namespace IMEdge\Snmp\Usm;
 
-use IMEdge\Snmp\SnmpAuthProtocol;
-
 use function floor;
 use function hash;
 use function str_repeat;
