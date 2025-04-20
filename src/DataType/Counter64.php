@@ -47,6 +47,9 @@ class Counter64 extends DataType
 
     public function jsonSerialize(): array
     {
+        // for static analysis:
+        assert($this->rawValue instanceof \GMP || is_string($this->rawValue) || is_int($this->rawValue));
+
         return [
             'type'  => self::TYPE_TO_NAME_MAP[static::TAG],
             'value' => gmp_strval($this->rawValue, 10),
