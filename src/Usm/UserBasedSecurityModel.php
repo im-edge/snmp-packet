@@ -12,12 +12,29 @@ class UserBasedSecurityModel implements Snmpv3SecurityParameters
     protected const TIME_WINDOW_SECONDS = 150;
 
     public function __construct(
-        public readonly string $username,
+        public readonly string $username = '',
         public readonly string $engineId = '', // ?? -> <MISSING> -->??
         public int $engineBoots = 0,
         public int $engineTime = 0,
-        public string $passwordHash = '',
+        public string $authenticationParams = '', // password hash
+        public string $privacyParams = '' // encryption salt
     ) {
+    }
+
+    public static function create(string $username, RemoteEngine $engine, string $salt): UserBasedSecurityModel
+    {
+        if ($engine->hasId()) {
+            return new UserBasedSecurityModel(
+                $username,
+                $engine->id,
+                $engine->boots,
+                $engine->time,
+                '',
+                $salt
+            );
+        }
+
+        return new UserBasedSecurityModel('');
     }
 
     public static function fromString(string $string): UserBasedSecurityModel
@@ -28,10 +45,9 @@ class UserBasedSecurityModel implements Snmpv3SecurityParameters
             $sequence->at(0)->asOctetString()->string(),
             $sequence->at(1)->asInteger()->intNumber(),
             $sequence->at(2)->asInteger()->intNumber(),
-            $sequence->at(4)->asOctetString()->string(), // authParams
+            $sequence->at(4)->asOctetString()->string(), // authenticationParams
+            $sequence->at(5)->asOctetString()->string(), // privacyParams
         );
-        // 4 -> authParams
-        // 5 -> privParams
     }
 
     public function __toString(): string
@@ -41,8 +57,8 @@ class UserBasedSecurityModel implements Snmpv3SecurityParameters
             new Integer($this->engineBoots),
             new Integer($this->engineTime),
             new OctetString($this->username), // 0..32 characters
-            new OctetString($this->passwordHash),
-            new OctetString(''), // privacyParameters
+            new OctetString($this->authenticationParams),
+            new OctetString($this->privacyParams),
         );
         return $sequence->toDER();
     }

@@ -3,6 +3,7 @@
 namespace IMEdge\Snmp;
 
 use IMEdge\Snmp\Usm\UserBasedSecurityModel;
+use Sop\ASN1\Element;
 use Sop\ASN1\Type\Constructed\Sequence;
 use Sop\ASN1\Type\Primitive\Integer;
 use Sop\ASN1\Type\Primitive\OctetString;
@@ -21,6 +22,13 @@ class SnmpV3Message extends SnmpMessage
 
     public function getPdu(): Pdu
     {
+        if ($this->scopedPdu->pdu === null) {
+            if ($this->scopedPdu->encryptedPdu !== null) {
+                throw new \RuntimeException('Cannot access plain PDU, but there is an encrypted one');
+            }
+
+            throw new \RuntimeException('ScopedPdu is empty');
+        }
         return $this->scopedPdu->pdu;
     }
 
@@ -30,9 +38,13 @@ class SnmpV3Message extends SnmpMessage
             new Integer($this->version),
             $this->header->toASN1(),
             new OctetString((string) $this->securityParameters),
-            // encrypted: new OctetString($this->scopedPdu->toASN1()->toDER()),
-            $this->scopedPdu->toASN1(),
+            $this->pduToASN1()
         );
+    }
+
+    protected function pduToASN1(): Sequence|OctetString
+    {
+        return $this->scopedPdu->toASN1();
     }
 
     public static function fromASN1(Sequence $sequence): static
@@ -62,10 +74,16 @@ class SnmpV3Message extends SnmpMessage
         } else {
             throw new \InvalidArgumentException('Unsupported security model: ' . $header->securityModel->name);
         }
+        $scoped = $sequence->at(3);
+        if ($scoped->isType(Element::TYPE_OCTET_STRING)) {
+            $scoped = $scoped->asOctetString();
+        } else {
+            $scoped = $scoped->asSequence();
+        }
         return new static(
             $header,
             $securityModel,
-            Snmpv3ScopedPdu::fromAsn1($sequence->at(3)->asSequence())
+            Snmpv3ScopedPdu::fromAsn1($scoped)
         );
     }
 }
