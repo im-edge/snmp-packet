@@ -43,7 +43,7 @@ class SocketAddress implements Stringable, JsonSerialization
             throw new InvalidArgumentException('Socket Address expected, got ' . var_export($any, true));
         }
 
-        return new SocketAddress(...(array) $any);
+        return new static(...(array) $any);
     }
 
     public function jsonSerialize(): object
