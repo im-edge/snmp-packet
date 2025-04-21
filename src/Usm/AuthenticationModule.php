@@ -2,6 +2,7 @@
 
 namespace IMEdge\Snmp\Usm;
 
+use IMEdge\Snmp\Error\SnmpAuthenticationException;
 use IMEdge\Snmp\SnmpV3Message;
 
 use function hash_hmac;
