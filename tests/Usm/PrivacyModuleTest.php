@@ -27,7 +27,7 @@ class PrivacyModuleTest extends TestCase
         );
         $decrypted = TestHelper::unHex(
             '30 33 04 11 80 00 1f 88 80 1e ce 80 47 02 bb 09 64 00 00 00 00 04 00 a0 1c 02 04 57 cf 1c c8 02'
-            . ' 01 00 02 01 00 30 0e 30 0c 06 08 2b 06 01 02 01 01 05 00 05 00'
+            . ' 01 00 02 01 00 30 0e 30 0c 06 08 2b 06 01 02 01 01 05 00 05 00 03 03 03'
         );
         $this->assertEqualsHex($decrypted, $module->decrypt($encrypted, $salt));
     }

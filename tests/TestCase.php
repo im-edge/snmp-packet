@@ -21,6 +21,5 @@ class TestCase extends BaseTestCase
         if (! in_array($protocol->getOpenSslCipherAlgo(), openssl_get_cipher_methods())) {
             $this->markTestSkipped('This platform does not support the DES protocol');
         }
-
     }
 }
