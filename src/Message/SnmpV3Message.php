@@ -1,8 +1,9 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\Snmp\Message;
 
 use IMEdge\Snmp\Pdu\Pdu;
+use IMEdge\Snmp\SecurityModel;
 use IMEdge\Snmp\Usm\UserBasedSecurityModel;
 use Sop\ASN1\Element;
 use Sop\ASN1\Type\Constructed\Sequence;

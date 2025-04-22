@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\Snmp\Message;
 
 use IMEdge\Snmp\DataType\DataType;
 use IMEdge\Snmp\DataType\NullType;

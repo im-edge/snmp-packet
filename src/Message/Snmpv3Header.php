@@ -1,7 +1,9 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\Snmp\Message;
 
+use IMEdge\Snmp\SecurityModel;
+use IMEdge\Snmp\SnmpSecurityLevel;
 use InvalidArgumentException;
 use Sop\ASN1\Type\Constructed\Sequence;
 use Sop\ASN1\Type\Primitive\Integer;

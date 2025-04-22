@@ -2,7 +2,7 @@
 
 namespace IMEdge\Snmp\Usm;
 
-use IMEdge\Snmp\VarBind;
+use IMEdge\Snmp\Message\VarBind;
 
 class UsmStats
 {

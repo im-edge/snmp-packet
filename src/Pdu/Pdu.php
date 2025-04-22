@@ -2,7 +2,7 @@
 
 namespace IMEdge\Snmp\Pdu;
 
-use IMEdge\Snmp\VarBind;
+use IMEdge\Snmp\Message\VarBind;
 use InvalidArgumentException;
 use RuntimeException;
 use Sop\ASN1\Element;

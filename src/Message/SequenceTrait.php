@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\Snmp\Message;
 
 use Sop\ASN1\Type\UnspecifiedType;
 

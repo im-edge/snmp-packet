@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\Snmp\Message;
 
 use IMEdge\Snmp\Pdu\Pdu;
 use Sop\ASN1\Type\Constructed\Sequence;

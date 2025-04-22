@@ -2,7 +2,7 @@
 
 namespace IMEdge\Snmp\Pdu;
 
-use IMEdge\Snmp\VarBind;
+use IMEdge\Snmp\Message\VarBind;
 use RuntimeException;
 use Sop\ASN1\Type\Constructed\Sequence;
 use Sop\ASN1\Type\Primitive\Integer;

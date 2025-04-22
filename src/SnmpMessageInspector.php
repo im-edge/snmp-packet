@@ -2,6 +2,10 @@
 
 namespace IMEdge\Snmp;
 
+use IMEdge\Snmp\Message\SnmpMessage;
+use IMEdge\Snmp\Message\SnmpV1Message;
+use IMEdge\Snmp\Message\SnmpV3Message;
+use IMEdge\Snmp\Message\VarBind;
 use IMEdge\Snmp\Pdu\Report;
 use IMEdge\Snmp\Usm\UserBasedSecurityModel;
 use IMEdge\Snmp\Usm\UsmStats;

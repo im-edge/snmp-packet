@@ -3,9 +3,9 @@
 namespace IMEdge\Tests\Snmp\Pdu;
 
 use IMEdge\Snmp\Pdu\GetRequest;
-use IMEdge\Snmp\SnmpMessage;
-use IMEdge\Snmp\SnmpV1Message;
-use IMEdge\Snmp\SnmpV2Message;
+use IMEdge\Snmp\Message\SnmpMessage;
+use IMEdge\Snmp\Message\SnmpV1Message;
+use IMEdge\Snmp\Message\SnmpV2Message;
 use PHPUnit\Framework\TestCase;
 
 abstract class SnmpGetRequest extends TestCase

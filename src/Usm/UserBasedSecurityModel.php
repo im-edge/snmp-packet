@@ -2,7 +2,7 @@
 
 namespace IMEdge\Snmp\Usm;
 
-use IMEdge\Snmp\Snmpv3SecurityParameters;
+use IMEdge\Snmp\Message\Snmpv3SecurityParameters;
 use Sop\ASN1\Type\Constructed\Sequence;
 use Sop\ASN1\Type\Primitive\Integer;
 use Sop\ASN1\Type\Primitive\OctetString;

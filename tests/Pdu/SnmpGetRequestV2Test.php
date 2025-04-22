@@ -2,7 +2,7 @@
 
 namespace IMEdge\Tests\Snmp\Pdu;
 
-use IMEdge\Snmp\SnmpV2Message;
+use IMEdge\Snmp\Message\SnmpV2Message;
 
 class SnmpGetRequestV2Test extends SnmpGetRequest
 {
