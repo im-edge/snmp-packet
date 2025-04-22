@@ -64,7 +64,7 @@ class PrivacyModule
             $encrypted,
             $this->privacyProtocol->getOpenSslCipherAlgo(),
             $this->shortenedPrivacyKey,
-            OPENSSL_RAW_DATA,
+            OPENSSL_RAW_DATA | OPENSSL_ZERO_PADDING,
             $this->createIvFromSalt($salt)
         );
 
