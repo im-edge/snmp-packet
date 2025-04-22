@@ -2,6 +2,7 @@
 
 namespace IMEdge\Tests\Snmp;
 
+use IMEdge\Snmp\Usm\SnmpPrivProtocol;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
@@ -13,5 +14,13 @@ class TestCase extends BaseTestCase
             TestHelper::niceHex($actual),
             $message
         );
+    }
+
+    protected function requirePrivacyProtocol(SnmpPrivProtocol $protocol): void
+    {
+        if (! in_array($protocol->getOpenSslCipherAlgo(), openssl_get_cipher_methods())) {
+            $this->markTestSkipped('This platform does not support the DES protocol');
+        }
+
     }
 }
