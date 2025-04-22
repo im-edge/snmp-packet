@@ -18,12 +18,11 @@ class PrivacyModule
     public function __construct(
         #[\SensitiveParameter]
         protected readonly string $password,
-        protected readonly string $engineId,
+        protected readonly RemoteEngine $engine,
         SnmpAuthProtocol $authProtocol,
         public readonly SnmpPrivProtocol $privacyProtocol,
-        protected readonly RemoteEngine $engine
     ) {
-        $this->privacyKey = PrivacyKey::generate($authProtocol, $privacyProtocol, $this->password, $this->engineId);
+        $this->privacyKey = PrivacyKey::generate($authProtocol, $privacyProtocol, $this->password, $this->engine->id);
 
         $keyLength = $privacyProtocol->getKeyLength();
         $this->shortenedPrivacyKey = substr($this->privacyKey, 0, $keyLength);

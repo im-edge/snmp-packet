@@ -18,7 +18,7 @@ class PrivacyModuleTest extends TestCase
         }
         $module = new PrivacyModule(
             'notsecure1',
-            TestHelper::unHex('80 00 1f 88 80 1e ce 80 47 02 bb 09 64 00 00 00 00'),
+            new RemoteEngine(TestHelper::unHex('80 00 1f 88 80 1e ce 80 47 02 bb 09 64 00 00 00 00')),
             SnmpAuthProtocol::MD5,
             SnmpPrivProtocol::DES,
             new RemoteEngine()
