@@ -21,7 +21,6 @@ class PrivacyModuleTest extends TestCase
             new RemoteEngine(TestHelper::unHex('80 00 1f 88 80 1e ce 80 47 02 bb 09 64 00 00 00 00')),
             SnmpAuthProtocol::MD5,
             SnmpPrivProtocol::DES,
-            new RemoteEngine()
         );
         $salt = TestHelper::unHex('00 00 00 01 35 33 b2 32');
         $encrypted = TestHelper::unHex(
