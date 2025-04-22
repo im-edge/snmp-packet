@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Tests\Snmp;
+namespace IMEdge\Tests\Snmp\Pdu;
 
 use IMEdge\Snmp\SnmpV1Message;
 

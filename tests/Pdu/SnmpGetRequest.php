@@ -1,8 +1,8 @@
 <?php
 
-namespace IMEdge\Tests\Snmp;
+namespace IMEdge\Tests\Snmp\Pdu;
 
-use IMEdge\Snmp\GetRequest;
+use IMEdge\Snmp\Pdu\GetRequest;
 use IMEdge\Snmp\SnmpMessage;
 use IMEdge\Snmp\SnmpV1Message;
 use IMEdge\Snmp\SnmpV2Message;

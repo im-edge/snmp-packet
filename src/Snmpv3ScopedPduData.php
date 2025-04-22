@@ -2,6 +2,7 @@
 
 namespace IMEdge\Snmp;
 
+use IMEdge\Snmp\Pdu\Pdu;
 use Sop\ASN1\Type\TaggedType;
 
 class Snmpv3ScopedPduData

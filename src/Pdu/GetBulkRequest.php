@@ -1,7 +1,8 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\Snmp\Pdu;
 
+use IMEdge\Snmp\VarBind;
 use RuntimeException;
 use Sop\ASN1\Type\Constructed\Sequence;
 use Sop\ASN1\Type\Primitive\Integer;
@@ -16,6 +17,9 @@ class GetBulkRequest extends Pdu
 {
     protected bool $wantsResponse = true;
 
+    /**
+     * @param VarBind[] $varBinds
+     */
     public function __construct(
         array $varBinds,
         ?int $requestId = null,

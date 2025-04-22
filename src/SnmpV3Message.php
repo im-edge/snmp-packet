@@ -2,6 +2,7 @@
 
 namespace IMEdge\Snmp;
 
+use IMEdge\Snmp\Pdu\Pdu;
 use IMEdge\Snmp\Usm\UserBasedSecurityModel;
 use Sop\ASN1\Element;
 use Sop\ASN1\Type\Constructed\Sequence;

@@ -2,6 +2,7 @@
 
 namespace IMEdge\Snmp;
 
+use IMEdge\Snmp\Pdu\Pdu;
 use Sop\ASN1\Type\Constructed\Sequence;
 use Sop\ASN1\Type\Primitive\OctetString;
 

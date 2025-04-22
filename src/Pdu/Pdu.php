@@ -1,7 +1,8 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\Snmp\Pdu;
 
+use IMEdge\Snmp\VarBind;
 use InvalidArgumentException;
 use RuntimeException;
 use Sop\ASN1\Element;

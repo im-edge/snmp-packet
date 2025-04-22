@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\Snmp\Pdu;
 
 /**
  * Report

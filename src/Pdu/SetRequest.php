@@ -1,13 +1,13 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\Snmp\Pdu;
 
-class GetRequest extends Pdu
+class SetRequest extends Pdu
 {
     protected bool $wantsResponse = true;
 
     public function getTag(): int
     {
-        return Pdu::GET_REQUEST;
+        return Pdu::SET_REQUEST;
     }
 }

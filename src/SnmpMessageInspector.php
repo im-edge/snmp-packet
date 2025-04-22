@@ -2,6 +2,7 @@
 
 namespace IMEdge\Snmp;
 
+use IMEdge\Snmp\Pdu\Report;
 use IMEdge\Snmp\Usm\UserBasedSecurityModel;
 use IMEdge\Snmp\Usm\UsmStats;
 use IMEdge\Tests\Snmp\TestHelper;
