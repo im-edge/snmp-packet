@@ -66,6 +66,19 @@ class PrivacyKeyTest extends TestCase
         );
     }
 
+    /**
+     * draft-blumenthal-aes-usm-04
+     * A.1. Sample Results of Extension of Localized Keys (e.g. usmAesCfb256PrivProtocol)
+     */
+    public function testAes256WithSha(): void
+    {
+        $this->checkKey(
+            SnmpAuthProtocol::SHA1,
+            SnmpPrivProtocol::AES256,
+            '66 95 fe bc 92 88 e3 62 82 23 5f c7 15 1f 12 84 97 b3 8f 3f 50 5e 07 eb 9a f2 55 68 fa 1f 5d be'
+        );
+    }
+
     protected function checkKey(
         SnmpAuthProtocol $protocol,
         SnmpPrivProtocol $privProtocol,
