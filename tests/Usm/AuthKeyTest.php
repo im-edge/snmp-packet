@@ -1,9 +1,10 @@
 <?php
 
-namespace IMEdge\Tests\Snmp;
+namespace IMEdge\Tests\Snmp\Usm;
 
 use IMEdge\Snmp\Usm\AuthKey;
 use IMEdge\Snmp\Usm\SnmpAuthProtocol;
+use IMEdge\Tests\Snmp\TestHelper;
 use PHPUnit\Framework\TestCase;
 
 class AuthKeyTest extends TestCase
@@ -16,6 +17,7 @@ class AuthKeyTest extends TestCase
             '52 6f 5e ed 9f cc e2 6f 89 64 c2 93 07 87 d8 2b'
         );
     }
+
     public function testSha1(): void
     {
         $this->checkAlgo(
