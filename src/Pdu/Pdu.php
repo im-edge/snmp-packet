@@ -2,6 +2,7 @@
 
 namespace IMEdge\Snmp\Pdu;
 
+use IMEdge\Snmp\ErrorStatus;
 use IMEdge\Snmp\Message\VarBind;
 use InvalidArgumentException;
 use RuntimeException;
@@ -23,7 +24,7 @@ abstract class Pdu
     public const TRAP_V2 = 7; // ?
     public const REPORT = 8;
 
-    protected int $errorStatus = 0; // error-status: noError(0)
+    protected ErrorStatus $errorStatus = ErrorStatus::NO_ERROR;
     protected int $errorIndex = 0;
     protected bool $wantsResponse = false;
 
@@ -50,10 +51,10 @@ abstract class Pdu
 
     public function isError(): bool
     {
-        return $this->errorStatus !== 0;
+        return $this->errorStatus !== ErrorStatus::NO_ERROR;
     }
 
-    public function getErrorStatus(): int
+    public function getErrorStatus(): ErrorStatus
     {
         return $this->errorStatus;
     }
@@ -70,7 +71,7 @@ abstract class Pdu
         }
         return new ImplicitlyTaggedType($this->getTag(), new Sequence(
             new Integer($this->requestId),
-            new Integer($this->errorStatus),
+            new Integer($this->errorStatus->value),
             new Integer($this->errorIndex),
             VarBind::listToSequence($this->varBinds)
         ));
@@ -97,7 +98,7 @@ abstract class Pdu
         };
 
         $pdu->requestId = $sequence->at(0)->asInteger()->intNumber();
-        $pdu->errorStatus = $sequence->at(1)->asInteger()->intNumber();
+        $pdu->errorStatus = ErrorStatus::from($sequence->at(1)->asInteger()->intNumber());
         $pdu->errorIndex = $sequence->at(2)->asInteger()->intNumber();
 
         return $pdu;
