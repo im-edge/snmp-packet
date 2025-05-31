@@ -71,6 +71,8 @@ class AuthKeyTest extends TestCase
     {
         $pass = 'maplesyrup';
         $engineId = TestHelper::unHex('00 00 00 00 00 00 00 00 00 00 00 02');
+        $intermediate = TestHelper::niceHex(TestHelper::unHex($intermediate));
+        $expected = TestHelper::niceHex(TestHelper::unHex($expected));
 
         $this->assertEquals($intermediate, TestHelper::niceHex(AuthKey::intermediate($authProtocol, $pass)));
         $this->assertEquals($expected, TestHelper::niceHex(AuthKey::generate($authProtocol, $pass, $engineId)));

@@ -8,7 +8,7 @@ class TestHelper
 {
     public static function unHex(string $string): string
     {
-        $bin = hex2bin(str_replace(' ', '', $string));
+        $bin = hex2bin(str_replace([' ', "\n"], '', $string));
         if ($bin === false) {
             throw new InvalidArgumentException("Unable to unHex: $string");
         }
@@ -25,6 +25,6 @@ class TestHelper
             return get_debug_type($string);
         }
 
-        return implode(' ', array_map(bin2hex(...), str_split($string)));
+        return wordwrap(implode(' ', array_map(bin2hex(...), str_split($string))), 120);
     }
 }
