@@ -3,15 +3,14 @@
 namespace IMEdge\Snmp\Message;
 
 use FreeDSx\Asn1\Type\SequenceType;
-use IMEdge\Snmp\VarBindValue\VarBindValue;
 use OutOfRangeException;
 use ValueError;
 
 class VarBindList
 {
-    protected function __construct(
+    public function __construct(
         /** @var VarBind[] */
-        protected array $varBinds = []
+        public array $varBinds = []
     ) {
     }
 

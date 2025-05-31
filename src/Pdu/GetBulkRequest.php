@@ -2,11 +2,12 @@
 
 namespace IMEdge\Snmp\Pdu;
 
-use IMEdge\Snmp\Message\VarBind;
+use FreeDSx\Asn1\Asn1;
+use FreeDSx\Asn1\Type\AbstractType;
+use FreeDSx\Asn1\Type\IntegerType;
+use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\Snmp\Message\VarBindList;
 use RuntimeException;
-use Sop\ASN1\Type\Constructed\Sequence;
-use Sop\ASN1\Type\Primitive\Integer;
-use Sop\ASN1\Type\Tagged\ImplicitlyTaggedType;
 
 /**
  * GetBulkRequest
@@ -15,35 +16,29 @@ use Sop\ASN1\Type\Tagged\ImplicitlyTaggedType;
  */
 class GetBulkRequest extends Pdu
 {
+    public const TAG = 5;
+
     protected bool $wantsResponse = true;
 
-    /**
-     * @param VarBind[] $varBinds
-     */
     public function __construct(
-        array $varBinds,
+        VarBindList $varBinds,
         ?int $requestId = null,
-        protected int $maxRepetitions = 10,
-        protected int $nonRepeaters = 0
+        public readonly int $maxRepetitions = 10,
+        public readonly int $nonRepeaters = 0
     ) {
         parent::__construct($varBinds, $requestId);
     }
 
-    public function getTag(): int
-    {
-        return Pdu::GET_BULK_REQUEST;
-    }
-
-    public function toASN1(): ImplicitlyTaggedType
+    public function toAsn1(): AbstractType
     {
         if ($this->requestId === null) {
-            throw new RuntimeException('Cannot created ASN1 type w/o requiestId');
+            throw new RuntimeException('Cannot created ASN1 type w/o requestId');
         }
-        return new ImplicitlyTaggedType($this->getTag(), new Sequence(
-            new Integer($this->requestId),
-            new Integer($this->nonRepeaters),
-            new Integer($this->maxRepetitions),
-            VarBind::listToSequence($this->varBinds)
+        return Asn1::context(static::TAG, new SequenceType(
+            new IntegerType($this->requestId),
+            new IntegerType($this->nonRepeaters),
+            new IntegerType($this->maxRepetitions),
+            $this->varBinds->toAsn1()
         ));
     }
 

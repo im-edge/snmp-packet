@@ -3,6 +3,7 @@
 namespace IMEdge\Snmp\Usm;
 
 use IMEdge\Snmp\Message\VarBind;
+use IMEdge\Snmp\Message\VarBindList;
 
 class UsmStats
 {
@@ -64,9 +65,9 @@ class UsmStats
     /**
      * @param VarBind[] $varBinds
      */
-    public static function getErrorForVarBindList(array $varBinds): ?string
+    public static function getErrorForVarBindList(VarBindList $varBinds): ?string
     {
-        foreach ($varBinds as $varBind) {
+        foreach ($varBinds->varBinds as $varBind) {
             if ($error = self::getNameForOid($varBind->oid)) {
                 return $error;
             }

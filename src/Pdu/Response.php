@@ -4,8 +4,5 @@ namespace IMEdge\Snmp\Pdu;
 
 class Response extends Pdu
 {
-    public function getTag(): int
-    {
-        return Pdu::RESPONSE;
-    }
+    public const TAG = 2;
 }

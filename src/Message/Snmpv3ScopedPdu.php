@@ -2,9 +2,9 @@
 
 namespace IMEdge\Snmp\Message;
 
+use FreeDSx\Asn1\Type\OctetStringType;
+use FreeDSx\Asn1\Type\SequenceType;
 use IMEdge\Snmp\Pdu\Pdu;
-use Sop\ASN1\Type\Constructed\Sequence;
-use Sop\ASN1\Type\Primitive\OctetString;
 
 class Snmpv3ScopedPdu
 {
@@ -41,31 +41,31 @@ class Snmpv3ScopedPdu
         return $this->encryptedPdu === null;
     }
 
-    public function toASN1(): Sequence|OctetString
+    public function toAsn1(): SequenceType|OctetStringType
     {
         if ($this->encryptedPdu === null) {
             if ($this->pdu === null) {
                 throw new \RuntimeException('Cannot encode empty scoped PDU');
             }
-            return new Sequence(
-                new OctetString($this->contextEngineId ?? ''),
-                new OctetString($this->contextName ?? ''),
-                $this->pdu->toASN1(),
+            return new SequenceType(
+                new OctetStringType($this->contextEngineId ?? ''),
+                new OctetStringType($this->contextName ?? ''),
+                $this->pdu->toAsn1(),
             );
         }
 
-        return new OctetString($this->encryptedPdu);
+        return new OctetStringType($this->encryptedPdu);
     }
 
-    public static function fromAsn1(Sequence|OctetString $encoded): Snmpv3ScopedPdu
+    public static function fromAsn1(SequenceType|OctetStringType $encoded): Snmpv3ScopedPdu
     {
         $self = new Snmpv3ScopedPdu();
-        if ($encoded instanceof Sequence) {
-            $self->pdu = Pdu::fromASN1($encoded->at(2)->asTagged());
-            $self->contextEngineId = $encoded->at(0)->asOctetString();
-            $self->contextName = $encoded->at(1)->asOctetString();
+        if ($encoded instanceof SequenceType) {
+            $self->pdu = Pdu::fromAsn1($encoded->getChild(2));
+            $self->contextEngineId = $encoded->getChild(0);
+            $self->contextName = $encoded->getChild(1);
         } else {
-            $self->encryptedPdu = $encoded->string();
+            $self->encryptedPdu = $encoded->getValue();
         }
         // ScopedPDU ::= SEQUENCE {
         //   contextEngineID  OCTET STRING,

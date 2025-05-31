@@ -2,7 +2,9 @@
 
 namespace IMEdge\Snmp\Message;
 
+use IMEdge\Snmp\SnmpVersion;
+
 class SnmpV2Message extends SnmpV1Message
 {
-    protected int $version = self::SNMP_V2C;
+    public const VERSION = SnmpVersion::v2c;
 }

@@ -9,10 +9,6 @@ namespace IMEdge\Snmp\Pdu;
  */
 class Report extends Pdu
 {
+    public const TAG = 8;
     protected bool $wantsResponse = true;
-
-    public function getTag(): int
-    {
-        return Pdu::REPORT;
-    }
 }

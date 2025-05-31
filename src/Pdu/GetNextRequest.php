@@ -4,10 +4,7 @@ namespace IMEdge\Snmp\Pdu;
 
 class GetNextRequest extends Pdu
 {
-    protected bool $wantsResponse = true;
+    public const TAG = 1;
 
-    public function getTag(): int
-    {
-        return Pdu::GET_NEXT_REQUEST;
-    }
+    protected bool $wantsResponse = true;
 }
