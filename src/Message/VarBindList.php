@@ -19,6 +19,17 @@ class VarBindList
         return $this->varBinds[$index - 1] ?? throw new OutOfRangeException("There is no VarBind at idx=$index");
     }
 
+    public function hasOid(string $oid): bool
+    {
+        foreach ($this->varBinds as $varBind) {
+            if ($varBind->oid === $oid) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static function fromAsn1(SequenceType $sequence): VarBindList
     {
         $list = [];
