@@ -6,12 +6,13 @@ use IMEdge\Snmp\Pdu\GetRequest;
 use IMEdge\Snmp\Message\SnmpMessage;
 use IMEdge\Snmp\Message\SnmpV1Message;
 use IMEdge\Snmp\Message\SnmpV2Message;
+use IMEdge\Snmp\SnmpVersion;
 use PHPUnit\Framework\TestCase;
 
 abstract class SnmpGetRequest extends TestCase
 {
     protected string $hexPayload = '';
-    protected string $expectedVersion = 'none';
+    protected ?SnmpVersion $expectedVersion = null;
     /** @var class-string */
     protected string $expectedMessageClass = TestCase::class;
 
@@ -20,7 +21,8 @@ abstract class SnmpGetRequest extends TestCase
         $request = $this->getSysName();
         $this->assertInstanceOf($this->expectedMessageClass, $request);
         $this->assertInstanceOf(GetRequest::class, $request->getPdu());
-        $this->assertEquals($this->expectedVersion, $request->getVersion());
+        /** @var SnmpV2Message|SnmpV1Message $request */
+        $this->assertEquals($this->expectedVersion, $request::VERSION);
     }
 
     public function testParsesCommunity(): void
