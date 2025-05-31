@@ -33,6 +33,11 @@ enum ErrorStatus: int
         return $this->value;
     }
 
+    public function isError(): bool
+    {
+        return $this !== ErrorStatus::NO_ERROR;
+    }
+
     public function getStatusName(): string
     {
         return match ($this) {
