@@ -62,9 +62,6 @@ class UsmStats
      */
     public const DECRYPTION_ERRORS = '1.3.6.1.6.3.15.1.1.6.0';
 
-    /**
-     * @param VarBind[] $varBinds
-     */
     public static function getErrorForVarBindList(VarBindList $varBinds): ?string
     {
         foreach ($varBinds->varBinds as $varBind) {
