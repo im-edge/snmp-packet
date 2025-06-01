@@ -2,9 +2,11 @@
 
 namespace IMEdge\Snmp\Message;
 
+use Exception;
 use FreeDSx\Asn1\Encoder\BerEncoder;
 use FreeDSx\Asn1\Type\SequenceType;
 use IMEdge\Snmp\Error\SnmpParseError;
+use IMEdge\Snmp\ParseHelper;
 use IMEdge\Snmp\Pdu\Pdu;
 use IMEdge\Snmp\SnmpVersion;
 use InvalidArgumentException;
@@ -32,15 +34,17 @@ abstract class SnmpMessage
 
     abstract public function getPdu(): Pdu;
 
+    /**
+     * @throws SnmpParseError
+     */
     public static function fromBinary(string $binary): SnmpMessage
     {
         self::$encoder ??= new BerEncoder();
-        $message = self::$encoder->decode($binary);
-        if ($message instanceof SequenceType) {
-            return static::fromAsn1($message);
+        try {
+            return static::fromAsn1(ParseHelper::requireSequence(self::$encoder->decode($binary), 'message'));
+        } catch (Exception $e) {
+            throw new SnmpParseError($e->getMessage(), $e->getCode(), $e);
         }
-
-        throw new SnmpParseError('Cannot parse message, sequence expected');
     }
 
     public function toBinary(): string

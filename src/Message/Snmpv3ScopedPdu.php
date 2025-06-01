@@ -6,6 +6,7 @@ use FreeDSx\Asn1\Type\IncompleteType;
 use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
 use IMEdge\Snmp\Error\SnmpParseError;
+use IMEdge\Snmp\ParseHelper;
 use IMEdge\Snmp\Pdu\Pdu;
 
 class Snmpv3ScopedPdu
@@ -66,11 +67,7 @@ class Snmpv3ScopedPdu
     {
         $self = new Snmpv3ScopedPdu();
         if ($encoded instanceof SequenceType) {
-            $pduPart = $encoded->getChild(2);
-            if (! $pduPart instanceof IncompleteType) {
-                throw new SnmpParseError('Got not PDU');
-            }
-            $self->pdu = Pdu::fromAsn1($pduPart);
+            $self->pdu = Pdu::fromAsn1(ParseHelper::requireIncomplete($encoded->getChild(2), 'PDU'));
             $self->contextEngineId = $encoded->getChild(0)?->getValue();
             $self->contextName = $encoded->getChild(1)?->getValue();
         } else {

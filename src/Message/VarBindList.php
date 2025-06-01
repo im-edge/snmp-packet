@@ -3,8 +3,8 @@
 namespace IMEdge\Snmp\Message;
 
 use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\Snmp\Error\SnmpParseError;
 use OutOfRangeException;
-use ValueError;
 
 class VarBindList
 {
@@ -30,17 +30,20 @@ class VarBindList
         return false;
     }
 
+    /**
+     * @throws SnmpParseError
+     */
     public static function fromAsn1(SequenceType $sequence): VarBindList
     {
         $list = [];
         foreach ($sequence->getChildren() as $idx => $varBind) {
             if (! $varBind instanceof SequenceType) {
-                throw new ValueError(sprintf('VarBind at idx=%d is not a Sequence', $idx + 1));
+                throw new SnmpParseError(sprintf('VarBind at idx=%d is not a Sequence', $idx + 1));
             }
             try {
                 $list[$idx] = VarBind::fromAsn1($varBind);
-            } catch (ValueError $e) {
-                throw new ValueError(sprintf(
+            } catch (SnmpParseError $e) {
+                throw new SnmpParseError(sprintf(
                     "Can't decode Variable Binding %d: %s",
                     $idx + 1,
                     $e->getMessage()

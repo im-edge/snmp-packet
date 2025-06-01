@@ -59,6 +59,9 @@ class Snmpv3Header
         );
     }
 
+    /**
+     * @throws SnmpParseError
+     */
     public static function fromAsn1(SequenceType $sequence): static
     {
         $flags = $sequence->getChild(2)?->getValue();
