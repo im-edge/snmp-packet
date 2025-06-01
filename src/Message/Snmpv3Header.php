@@ -77,7 +77,9 @@ class Snmpv3Header
             $sequence->getChild(1)?->getValue() ?? throw new SnmpParseError('Got no maxSize'),
             SnmpSecurityLevel::fromBinaryFlag($flags & self::SECURITY_LEVEL_FILTER),
             ($flags & self::REPORTABLE_FLAG) === self::REPORTABLE_FLAG,
-            SecurityModel::from($sequence->getChild(3)?->getValue() ?? throw new SnmpParseError('Got no securityModel')),
+            SecurityModel::from(
+                $sequence->getChild(3)?->getValue() ?? throw new SnmpParseError('Got no securityModel')
+            ),
         );
         // from rfc3412#page-19:
         // msgID      INTEGER (0..2147483647),

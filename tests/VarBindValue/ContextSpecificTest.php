@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class ContextSpecificTest extends TestCase
 {
-
     public function testParseAndRenderNoSuchObject(): void
     {
         $binary = TestHelper::unHex('80 00');

@@ -42,9 +42,7 @@ abstract class Pdu
             throw new RuntimeException('Cannot created ASN1 type w/o requestId');
         }
         if (static::TAG === -1) {
-            throw new RuntimeException(sprintf(
-                '%s has no TAG', get_class($this)
-            ));
+            throw new RuntimeException(sprintf('%s has no TAG', get_class($this)));
         }
 
         return Asn1::context(static::TAG, new SequenceType(
