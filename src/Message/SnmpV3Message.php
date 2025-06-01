@@ -5,6 +5,7 @@ namespace IMEdge\Snmp\Message;
 use FreeDSx\Asn1\Type\IntegerType;
 use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\Snmp\Error\SnmpParseError;
 use IMEdge\Snmp\Pdu\Pdu;
 use IMEdge\Snmp\SecurityModel;
 use IMEdge\Snmp\SnmpVersion;
@@ -45,6 +46,9 @@ class SnmpV3Message extends SnmpMessage
         );
     }
 
+    /**
+     * @throws SnmpParseError
+     */
     public static function fromAsn1(SequenceType $sequence): static
     {
         if ($sequence->count() !== 4) {
@@ -66,17 +70,28 @@ class SnmpV3Message extends SnmpMessage
         // security model-specific parameters
         // format defined by Security Model:
         // ScopedPduData:
-        $header = Snmpv3Header::fromAsn1($sequence->getChild(1));
+        $headerPart = $sequence->getChild(1);
+        if (! $headerPart instanceof SequenceType) {
+            throw new SnmpParseError('Got no header sequence');
+        }
+        $header = Snmpv3Header::fromAsn1($headerPart);
         if ($header->securityModel === SecurityModel::USM) {
-            $securityModel = UserBasedSecurityModel::fromString($sequence->getChild(2)->getValue());
+            $securityModel = UserBasedSecurityModel::fromString(
+                $sequence->getChild(2)?->getValue() ?? throw new SnmpParseError('USM is missing')
+            );
         } else {
-            throw new \InvalidArgumentException('Unsupported security model: ' . $header->securityModel->name);
+            throw new SnmpParseError('Unsupported security model: ' . $header->securityModel->name);
+        }
+
+        $scopedPart = $sequence->getChild(3);
+        if (! $scopedPart instanceof SequenceType) {
+            throw new SnmpParseError('Got no scoped PDU sequence');
         }
 
         return new static(
             $header,
             $securityModel,
-            Snmpv3ScopedPdu::fromAsn1($sequence->getChild(3))
+            Snmpv3ScopedPdu::fromAsn1($scopedPart)
         );
     }
 }

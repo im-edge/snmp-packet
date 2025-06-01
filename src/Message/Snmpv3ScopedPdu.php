@@ -2,8 +2,10 @@
 
 namespace IMEdge\Snmp\Message;
 
+use FreeDSx\Asn1\Type\IncompleteType;
 use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\Snmp\Error\SnmpParseError;
 use IMEdge\Snmp\Pdu\Pdu;
 
 class Snmpv3ScopedPdu
@@ -57,13 +59,20 @@ class Snmpv3ScopedPdu
         return new OctetStringType($this->encryptedPdu);
     }
 
+    /**
+     * @throws SnmpParseError
+     */
     public static function fromAsn1(SequenceType|OctetStringType $encoded): Snmpv3ScopedPdu
     {
         $self = new Snmpv3ScopedPdu();
         if ($encoded instanceof SequenceType) {
-            $self->pdu = Pdu::fromAsn1($encoded->getChild(2));
-            $self->contextEngineId = $encoded->getChild(0);
-            $self->contextName = $encoded->getChild(1);
+            $pduPart = $encoded->getChild(2);
+            if (! $pduPart instanceof IncompleteType) {
+                throw new SnmpParseError('Got not PDU');
+            }
+            $self->pdu = Pdu::fromAsn1($pduPart);
+            $self->contextEngineId = $encoded->getChild(0)?->getValue();
+            $self->contextName = $encoded->getChild(1)?->getValue();
         } else {
             $self->encryptedPdu = $encoded->getValue();
         }
