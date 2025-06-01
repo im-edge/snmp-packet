@@ -5,6 +5,7 @@ namespace IMEdge\Snmp\Message;
 use FreeDSx\Asn1\Type\IntegerType;
 use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\Snmp\Error\SnmpParseError;
 use IMEdge\Snmp\SecurityModel;
 use IMEdge\Snmp\SnmpSecurityLevel;
 use InvalidArgumentException;
@@ -60,7 +61,7 @@ class Snmpv3Header
 
     public static function fromAsn1(SequenceType $sequence): static
     {
-        $flags = $sequence->getChild(2)->getValue();
+        $flags = $sequence->getChild(2)?->getValue();
         if (strlen($flags) !== 1) {
             throw new InvalidArgumentException(sprintf(
                 "msgFlags MUST be exactly one byte long, got %d",
@@ -69,11 +70,11 @@ class Snmpv3Header
         }
 
         return new static(
-            $sequence->getChild(0)->getValue(),
-            $sequence->getChild(1)->getValue(),
+            $sequence->getChild(0)?->getValue() ?? throw new SnmpParseError('Got no messageId'),
+            $sequence->getChild(1)?->getValue() ?? throw new SnmpParseError('Got no maxSize'),
             SnmpSecurityLevel::fromBinaryFlag($flags & self::SECURITY_LEVEL_FILTER),
             ($flags & self::REPORTABLE_FLAG) === self::REPORTABLE_FLAG,
-            SecurityModel::from($sequence->getChild(3)->getValue()),
+            SecurityModel::from($sequence->getChild(3)?->getValue() ?? throw new SnmpParseError('Got no securityModel')),
         );
         // from rfc3412#page-19:
         // msgID      INTEGER (0..2147483647),

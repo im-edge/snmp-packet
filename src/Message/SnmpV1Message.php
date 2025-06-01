@@ -2,9 +2,11 @@
 
 namespace IMEdge\Snmp\Message;
 
+use FreeDSx\Asn1\Type\IncompleteType;
 use FreeDSx\Asn1\Type\IntegerType;
 use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\Snmp\Error\SnmpParseError;
 use IMEdge\Snmp\Pdu\Pdu;
 use IMEdge\Snmp\SnmpVersion;
 
@@ -35,9 +37,13 @@ class SnmpV1Message extends SnmpMessage
 
     public static function fromAsn1(SequenceType $sequence): static
     {
+        $pdu = $sequence->getChild(2);
+        if (!$pdu instanceof IncompleteType) {
+            throw new SnmpParseError('IncompleteType for PDU expected, got ' . get_debug_type($pdu));
+        }
         return new static(
-            $sequence->getChild(1)->getValue(),
-            Pdu::fromAsn1($sequence->getChild(2))
+            $sequence->getChild(1)?->getValue() ?? throw new SnmpParseError('Got no Community'),
+            Pdu::fromAsn1($pdu)
         );
     }
 }

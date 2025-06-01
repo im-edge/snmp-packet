@@ -4,6 +4,7 @@ namespace IMEdge\Snmp;
 
 use IMEdge\Snmp\Message\SnmpMessage;
 use IMEdge\Snmp\Message\SnmpV1Message;
+use IMEdge\Snmp\Message\SnmpV2Message;
 use IMEdge\Snmp\Message\SnmpV3Message;
 use IMEdge\Snmp\Message\VarBind;
 use IMEdge\Snmp\Message\VarBindList;
@@ -21,12 +22,13 @@ class SnmpMessageInspector
 
     public static function getDump(SnmpMessage $message): string
     {
+        assert($message instanceof SnmpV1Message || $message instanceof SnmpV3Message);
         $result = sprintf("Version       : %s\n", $message::VERSION->value);
         if ($message instanceof SnmpV1Message) {
             $result .= sprintf("Community     : %s\n", $message->community);
             $result .= sprintf("Request ID    : %s\n", $message->pdu->requestId ?? '-');
             $result .= self::prepareVarBinds($message->getPdu()->varBinds);
-        } elseif ($message instanceof SnmpV3Message) {
+        } else {
             if ($message->securityParameters instanceof UserBasedSecurityModel) {
                 $result .= sprintf("Message ID    : %s\n", $message->header->messageId ?? '-');
                 $result .= sprintf("Username      : %s\n", $message->securityParameters->username ?? '-');
@@ -63,7 +65,6 @@ class SnmpMessageInspector
                 }
             }
         }
-
 
         return $result;
     }
