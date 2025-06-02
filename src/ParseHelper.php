@@ -3,11 +3,24 @@
 namespace IMEdge\Snmp;
 
 use FreeDSx\Asn1\Type\IncompleteType;
+use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
 use IMEdge\Snmp\Error\SnmpParseError;
 
 class ParseHelper
 {
+    /**
+     * @throws SnmpParseError
+     */
+    public static function requireOctetString(mixed $type, string $label): OctetStringType
+    {
+        if ($type instanceof OctetStringType) {
+            return $type;
+        }
+
+        throw new SnmpParseError(sprintf('OctetString expected for %s, got %s', $label, get_debug_type($type)));
+    }
+
     /**
      * @throws SnmpParseError
      */
@@ -18,6 +31,22 @@ class ParseHelper
         }
 
         throw new SnmpParseError(sprintf('Sequence expected for %s, got %s', $label, get_debug_type($type)));
+    }
+
+    /**
+     * @throws SnmpParseError
+     */
+    public static function requireOctetStringOrSequence(mixed $type, string $label): OctetStringType|SequenceType
+    {
+        if ($type instanceof OctetStringType || $type instanceof SequenceType) {
+            return $type;
+        }
+
+        throw new SnmpParseError(sprintf(
+            'OctetString or Sequence expected for %s, got %s',
+            $label,
+            get_debug_type($type)
+        ));
     }
 
     /**

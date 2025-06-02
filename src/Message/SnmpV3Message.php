@@ -83,7 +83,7 @@ class SnmpV3Message extends SnmpMessage
         }
 
         return new static($header, $securityModel, Snmpv3ScopedPdu::fromAsn1(
-            ParseHelper::requireSequence($sequence->getChild(3), 'scoped PDU')
+            ParseHelper::requireOctetStringOrSequence($sequence->getChild(3), 'scoped PDU')
         ));
     }
 }
