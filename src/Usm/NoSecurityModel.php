@@ -2,12 +2,12 @@
 
 namespace IMEdge\SnmpPacket\Usm;
 
-use IMEdge\SnmpPacket\Message\Snmpv3SecurityParameters;
+use IMEdge\SnmpPacket\Message\SnmpV3SecurityParameters;
 
 /**
  * Unused
  */
-class NoSecurityModel implements Snmpv3SecurityParameters
+class NoSecurityModel implements SnmpV3SecurityParameters
 {
     protected static ?string $rawString = null;
 

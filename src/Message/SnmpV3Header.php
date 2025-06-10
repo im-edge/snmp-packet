@@ -12,7 +12,7 @@ use InvalidArgumentException;
 
 use function strlen;
 
-class Snmpv3Header
+class SnmpV3Header
 {
     protected const REPORTABLE_FLAG = "\x04";
     protected const NO_FLAG = "\x00";

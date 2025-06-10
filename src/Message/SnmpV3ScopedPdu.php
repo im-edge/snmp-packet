@@ -9,7 +9,7 @@ use IMEdge\SnmpPacket\Error\SnmpParseError;
 use IMEdge\SnmpPacket\ParseHelper;
 use IMEdge\SnmpPacket\Pdu\Pdu;
 
-class Snmpv3ScopedPdu
+class SnmpV3ScopedPdu
 {
     public ?Pdu $pdu = null;
     public ?string $contextEngineId = null;
@@ -20,9 +20,9 @@ class Snmpv3ScopedPdu
     {
     }
 
-    public static function forPdu(Pdu $pdu, string $contextEngineId = '', string $contextName = ''): Snmpv3ScopedPdu
+    public static function forPdu(Pdu $pdu, string $contextEngineId = '', string $contextName = ''): SnmpV3ScopedPdu
     {
-        $self = new Snmpv3ScopedPdu();
+        $self = new SnmpV3ScopedPdu();
         $self->pdu = $pdu;
         $self->contextEngineId = $contextEngineId;
         $self->contextName = $contextName;
@@ -30,9 +30,9 @@ class Snmpv3ScopedPdu
         return $self;
     }
 
-    public static function encrypted(string $encryptedPdu, ?Pdu $pdu = null): Snmpv3ScopedPdu
+    public static function encrypted(string $encryptedPdu, ?Pdu $pdu = null): SnmpV3ScopedPdu
     {
-        $self = new Snmpv3ScopedPdu();
+        $self = new SnmpV3ScopedPdu();
         $self->pdu = $pdu;
         $self->encryptedPdu = $encryptedPdu;
 
@@ -66,9 +66,9 @@ class Snmpv3ScopedPdu
     /**
      * @throws SnmpParseError
      */
-    public static function fromAsn1(SequenceType|OctetStringType $encoded): Snmpv3ScopedPdu
+    public static function fromAsn1(SequenceType|OctetStringType $encoded): SnmpV3ScopedPdu
     {
-        $self = new Snmpv3ScopedPdu();
+        $self = new SnmpV3ScopedPdu();
         if ($encoded instanceof SequenceType) {
             $self->pdu = Pdu::fromAsn1(ParseHelper::requireIncomplete($encoded->getChild(2), 'PDU'));
             $self->contextEngineId = $encoded->getChild(0)?->getValue();

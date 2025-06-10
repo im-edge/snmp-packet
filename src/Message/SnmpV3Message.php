@@ -19,9 +19,9 @@ class SnmpV3Message extends SnmpMessage
 
     // TODO: Should we really require a full header, or just some params?
     final public function __construct(
-        public readonly Snmpv3Header $header,
-        public readonly Snmpv3SecurityParameters $securityParameters, // defined by security model
-        public readonly Snmpv3ScopedPdu $scopedPdu, // Or encrypted PDU -> OctetString
+        public readonly SnmpV3Header $header,
+        public readonly SnmpV3SecurityParameters $securityParameters, // defined by security model
+        public readonly SnmpV3ScopedPdu $scopedPdu, // Or encrypted PDU -> OctetString
     ) {
     }
 
@@ -71,7 +71,7 @@ class SnmpV3Message extends SnmpMessage
         // security model-specific parameters
         // format defined by Security Model:
         // ScopedPduData:
-        $header = Snmpv3Header::fromAsn1(
+        $header = SnmpV3Header::fromAsn1(
             ParseHelper::requireSequence($sequence->getChild(1), 'header')
         );
         if ($header->securityModel === SecurityModel::USM) {
@@ -82,7 +82,7 @@ class SnmpV3Message extends SnmpMessage
             throw new SnmpParseError('Unsupported security model: ' . $header->securityModel->name);
         }
 
-        return new static($header, $securityModel, Snmpv3ScopedPdu::fromAsn1(
+        return new static($header, $securityModel, SnmpV3ScopedPdu::fromAsn1(
             ParseHelper::requireOctetStringOrSequence($sequence->getChild(3), 'scoped PDU')
         ));
     }

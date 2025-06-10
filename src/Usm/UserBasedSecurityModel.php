@@ -8,10 +8,10 @@ use FreeDSx\Asn1\Type\IntegerType;
 use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
 use IMEdge\SnmpPacket\Error\SnmpParseError;
-use IMEdge\SnmpPacket\Message\Snmpv3SecurityParameters;
+use IMEdge\SnmpPacket\Message\SnmpV3SecurityParameters;
 use IMEdge\SnmpPacket\ParseHelper;
 
-class UserBasedSecurityModel implements Snmpv3SecurityParameters
+class UserBasedSecurityModel implements SnmpV3SecurityParameters
 {
     protected const TIME_WINDOW_SECONDS = 150;
 
