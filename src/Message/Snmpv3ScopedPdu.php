@@ -1,13 +1,13 @@
 <?php
 
-namespace IMEdge\Snmp\Message;
+namespace IMEdge\SnmpPacket\Message;
 
 use FreeDSx\Asn1\Type\IncompleteType;
 use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
-use IMEdge\Snmp\Error\SnmpParseError;
-use IMEdge\Snmp\ParseHelper;
-use IMEdge\Snmp\Pdu\Pdu;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
+use IMEdge\SnmpPacket\ParseHelper;
+use IMEdge\SnmpPacket\Pdu\Pdu;
 
 class Snmpv3ScopedPdu
 {

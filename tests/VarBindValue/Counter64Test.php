@@ -1,10 +1,10 @@
 <?php
 
-namespace IMEdge\Tests\Snmp\VarBindValue;
+namespace IMEdge\Tests\SnmpPacket\VarBindValue;
 
 use FreeDSx\Asn1\Encoder\BerEncoder;
-use IMEdge\Snmp\VarBindValue\Counter64;
-use IMEdge\Snmp\VarBindValue\Value;
+use IMEdge\SnmpPacket\VarBindValue\Counter64;
+use IMEdge\SnmpPacket\VarBindValue\Value;
 use PHPUnit\Framework\TestCase;
 
 class Counter64Test extends TestCase

@@ -1,16 +1,16 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\SnmpPacket;
 
-use IMEdge\Snmp\Message\SnmpMessage;
-use IMEdge\Snmp\Message\SnmpV1Message;
-use IMEdge\Snmp\Message\SnmpV2Message;
-use IMEdge\Snmp\Message\SnmpV3Message;
-use IMEdge\Snmp\Message\VarBind;
-use IMEdge\Snmp\Message\VarBindList;
-use IMEdge\Snmp\Pdu\Report;
-use IMEdge\Snmp\Usm\UserBasedSecurityModel;
-use IMEdge\Snmp\Usm\UsmStats;
+use IMEdge\SnmpPacket\Message\SnmpMessage;
+use IMEdge\SnmpPacket\Message\SnmpV1Message;
+use IMEdge\SnmpPacket\Message\SnmpV2Message;
+use IMEdge\SnmpPacket\Message\SnmpV3Message;
+use IMEdge\SnmpPacket\Message\VarBind;
+use IMEdge\SnmpPacket\Message\VarBindList;
+use IMEdge\SnmpPacket\Pdu\Report;
+use IMEdge\SnmpPacket\Usm\UserBasedSecurityModel;
+use IMEdge\SnmpPacket\Usm\UsmStats;
 use IMEdge\Tests\Snmp\TestHelper;
 
 class SnmpMessageInspector

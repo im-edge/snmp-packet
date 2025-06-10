@@ -1,9 +1,9 @@
 <?php
 
-namespace IMEdge\Snmp\Usm;
+namespace IMEdge\SnmpPacket\Usm;
 
-use IMEdge\Snmp\Message\VarBind;
-use IMEdge\Snmp\Message\VarBindList;
+use IMEdge\SnmpPacket\Message\VarBind;
+use IMEdge\SnmpPacket\Message\VarBindList;
 
 class UsmStats
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace IMEdge\Tests\Snmp\Pdu;
+namespace IMEdge\Tests\SnmpPacket\Pdu;
 
-use IMEdge\Snmp\Pdu\GetRequest;
-use IMEdge\Snmp\Message\SnmpMessage;
-use IMEdge\Snmp\Message\SnmpV1Message;
-use IMEdge\Snmp\Message\SnmpV2Message;
-use IMEdge\Snmp\SnmpVersion;
+use IMEdge\SnmpPacket\Pdu\GetRequest;
+use IMEdge\SnmpPacket\Message\SnmpMessage;
+use IMEdge\SnmpPacket\Message\SnmpV1Message;
+use IMEdge\SnmpPacket\Message\SnmpV2Message;
+use IMEdge\SnmpPacket\SnmpVersion;
 use PHPUnit\Framework\TestCase;
 
 abstract class SnmpGetRequest extends TestCase

@@ -1,13 +1,13 @@
 <?php
 
-namespace IMEdge\Snmp\Message;
+namespace IMEdge\SnmpPacket\Message;
 
 use FreeDSx\Asn1\Type\NullType;
 use FreeDSx\Asn1\Type\OidType;
 use FreeDSx\Asn1\Type\SequenceType;
-use IMEdge\Snmp\Error\SnmpParseError;
-use IMEdge\Snmp\VarBindValue\Value;
-use IMEdge\Snmp\VarBindValue\VarBindValue;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
+use IMEdge\SnmpPacket\VarBindValue\Value;
+use IMEdge\SnmpPacket\VarBindValue\VarBindValue;
 
 class VarBind
 {

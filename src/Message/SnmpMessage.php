@@ -1,14 +1,14 @@
 <?php
 
-namespace IMEdge\Snmp\Message;
+namespace IMEdge\SnmpPacket\Message;
 
 use Exception;
 use FreeDSx\Asn1\Encoder\BerEncoder;
 use FreeDSx\Asn1\Type\SequenceType;
-use IMEdge\Snmp\Error\SnmpParseError;
-use IMEdge\Snmp\ParseHelper;
-use IMEdge\Snmp\Pdu\Pdu;
-use IMEdge\Snmp\SnmpVersion;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
+use IMEdge\SnmpPacket\ParseHelper;
+use IMEdge\SnmpPacket\Pdu\Pdu;
+use IMEdge\SnmpPacket\SnmpVersion;
 use InvalidArgumentException;
 
 abstract class SnmpMessage

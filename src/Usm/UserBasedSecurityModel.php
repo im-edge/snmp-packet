@@ -1,15 +1,15 @@
 <?php
 
-namespace IMEdge\Snmp\Usm;
+namespace IMEdge\SnmpPacket\Usm;
 
 use FreeDSx\Asn1\Encoder\BerEncoder;
 use FreeDSx\Asn1\Exception\EncoderException;
 use FreeDSx\Asn1\Type\IntegerType;
 use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
-use IMEdge\Snmp\Error\SnmpParseError;
-use IMEdge\Snmp\Message\Snmpv3SecurityParameters;
-use IMEdge\Snmp\ParseHelper;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
+use IMEdge\SnmpPacket\Message\Snmpv3SecurityParameters;
+use IMEdge\SnmpPacket\ParseHelper;
 
 class UserBasedSecurityModel implements Snmpv3SecurityParameters
 {

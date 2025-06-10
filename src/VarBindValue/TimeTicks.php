@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp\VarBindValue;
+namespace IMEdge\SnmpPacket\VarBindValue;
 
 /**
  * TimeTicks (RFC 2578 7.1.8)

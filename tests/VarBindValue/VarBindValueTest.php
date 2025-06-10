@@ -1,13 +1,13 @@
 <?php
 
-namespace IMEdge\Tests\Snmp\VarBindValue;
+namespace IMEdge\Tests\SnmpPacket\VarBindValue;
 
 use FreeDSx\Asn1\Encoder\BerEncoder;
-use IMEdge\Snmp\Message\VarBind;
-use IMEdge\Snmp\VarBindValue\ObjectIdentifier;
-use IMEdge\Snmp\VarBindValue\OctetString;
-use IMEdge\Tests\Snmp\TestCase;
-use IMEdge\Tests\Snmp\TestHelper;
+use IMEdge\SnmpPacket\Message\VarBind;
+use IMEdge\SnmpPacket\VarBindValue\ObjectIdentifier;
+use IMEdge\SnmpPacket\VarBindValue\OctetString;
+use IMEdge\Tests\SnmpPacket\TestCase;
+use IMEdge\Tests\SnmpPacket\TestHelper;
 
 class VarBindValueTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp\Message;
+namespace IMEdge\SnmpPacket\Message;
 
 use Stringable;
 

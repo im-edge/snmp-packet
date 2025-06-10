@@ -1,11 +1,11 @@
 <?php
 
-namespace IMEdge\Tests\Snmp;
+namespace IMEdge\Tests\SnmpPacket;
 
 use FreeDSx\Asn1\Encoder\BerEncoder;
 use FreeDSx\Asn1\Type\AbstractType;
 use FreeDSx\Asn1\Type\SequenceType;
-use IMEdge\Snmp\Usm\SnmpPrivProtocol;
+use IMEdge\SnmpPacket\Usm\SnmpPrivProtocol;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase

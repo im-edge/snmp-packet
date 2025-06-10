@@ -1,13 +1,13 @@
 <?php
 
-namespace IMEdge\Snmp\Message;
+namespace IMEdge\SnmpPacket\Message;
 
 use FreeDSx\Asn1\Type\IntegerType;
 use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
-use IMEdge\Snmp\Error\SnmpParseError;
-use IMEdge\Snmp\SecurityModel;
-use IMEdge\Snmp\SnmpSecurityLevel;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
+use IMEdge\SnmpPacket\SecurityModel;
+use IMEdge\SnmpPacket\SnmpSecurityLevel;
 use InvalidArgumentException;
 
 use function strlen;

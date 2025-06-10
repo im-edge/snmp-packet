@@ -1,8 +1,8 @@
 <?php
 
-namespace IMEdge\Snmp\Usm;
+namespace IMEdge\SnmpPacket\Usm;
 
-use IMEdge\Snmp\Message\Snmpv3SecurityParameters;
+use IMEdge\SnmpPacket\Message\Snmpv3SecurityParameters;
 
 /**
  * Unused

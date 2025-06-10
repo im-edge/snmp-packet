@@ -1,9 +1,9 @@
 <?php
 
-namespace IMEdge\Snmp\Message;
+namespace IMEdge\SnmpPacket\Message;
 
 use FreeDSx\Asn1\Type\SequenceType;
-use IMEdge\Snmp\Error\SnmpParseError;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
 use OutOfRangeException;
 
 class VarBindList

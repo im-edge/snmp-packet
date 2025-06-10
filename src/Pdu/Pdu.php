@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp\Pdu;
+namespace IMEdge\SnmpPacket\Pdu;
 
 use FreeDSx\Asn1\Asn1;
 use FreeDSx\Asn1\Encoder\BerEncoder;
@@ -9,10 +9,10 @@ use FreeDSx\Asn1\Type\AbstractType;
 use FreeDSx\Asn1\Type\IncompleteType;
 use FreeDSx\Asn1\Type\IntegerType;
 use FreeDSx\Asn1\Type\SequenceType;
-use IMEdge\Snmp\Error\SnmpParseError;
-use IMEdge\Snmp\ErrorStatus;
-use IMEdge\Snmp\Message\VarBindList;
-use IMEdge\Snmp\ParseHelper;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
+use IMEdge\SnmpPacket\ErrorStatus;
+use IMEdge\SnmpPacket\Message\VarBindList;
+use IMEdge\SnmpPacket\ParseHelper;
 use InvalidArgumentException;
 use RuntimeException;
 

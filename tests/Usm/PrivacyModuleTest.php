@@ -1,13 +1,13 @@
 <?php
 
-namespace IMEdge\Tests\Snmp\Usm;
+namespace IMEdge\Tests\SnmpPacket\Usm;
 
-use IMEdge\Snmp\Usm\SnmpPrivProtocol;
-use IMEdge\Snmp\Usm\PrivacyModule;
-use IMEdge\Snmp\Usm\RemoteEngine;
-use IMEdge\Snmp\Usm\SnmpAuthProtocol;
-use IMEdge\Tests\Snmp\TestCase;
-use IMEdge\Tests\Snmp\TestHelper;
+use IMEdge\SnmpPacket\Usm\SnmpPrivProtocol;
+use IMEdge\SnmpPacket\Usm\PrivacyModule;
+use IMEdge\SnmpPacket\Usm\RemoteEngine;
+use IMEdge\SnmpPacket\Usm\SnmpAuthProtocol;
+use IMEdge\Tests\SnmpPacket\TestCase;
+use IMEdge\Tests\SnmpPacket\TestHelper;
 
 class PrivacyModuleTest extends TestCase
 {

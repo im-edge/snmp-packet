@@ -1,6 +1,6 @@
 {
-    "name": "imedge/snmp",
-    "description": "SNMP protocol implementation",
+    "name": "imedge/snmp-packet",
+    "description": "SNMP packet parser and renderer",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "IMEdge\\Snmp\\": "src"
+            "IMEdge\\SnmpPacket\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "IMEdge\\Tests\\Snmp\\": "tests/"
+            "IMEdge\\Tests\\SnmpPacket\\": "tests/"
         }
     },
     "require": {

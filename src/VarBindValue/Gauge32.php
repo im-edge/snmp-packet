@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp\VarBindValue;
+namespace IMEdge\SnmpPacket\VarBindValue;
 
 /**
  * Gauge32 (RFC 2578 7.1.7)

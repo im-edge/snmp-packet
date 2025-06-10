@@ -1,9 +1,9 @@
 <?php
 
-namespace IMEdge\Tests\Snmp\Pdu;
+namespace IMEdge\Tests\SnmpPacket\Pdu;
 
-use IMEdge\Snmp\Message\SnmpV1Message;
-use IMEdge\Snmp\SnmpVersion;
+use IMEdge\SnmpPacket\Message\SnmpV1Message;
+use IMEdge\SnmpPacket\SnmpVersion;
 
 class SnmpGetRequestV1Test extends SnmpGetRequest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp\VarBindValue;
+namespace IMEdge\SnmpPacket\VarBindValue;
 
 use FreeDSx\Asn1\Type\AbstractType;
 use FreeDSx\Asn1\Type\NullType;

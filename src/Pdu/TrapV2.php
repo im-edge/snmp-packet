@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp\Pdu;
+namespace IMEdge\SnmpPacket\Pdu;
 
 class TrapV2 extends Pdu
 {

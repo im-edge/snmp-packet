@@ -1,12 +1,12 @@
 <?php
 
-namespace IMEdge\Snmp\Pdu;
+namespace IMEdge\SnmpPacket\Pdu;
 
 use FreeDSx\Asn1\Asn1;
 use FreeDSx\Asn1\Type\AbstractType;
 use FreeDSx\Asn1\Type\IntegerType;
 use FreeDSx\Asn1\Type\SequenceType;
-use IMEdge\Snmp\Message\VarBindList;
+use IMEdge\SnmpPacket\Message\VarBindList;
 use RuntimeException;
 
 /**

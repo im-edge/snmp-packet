@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp\Error;
+namespace IMEdge\SnmpPacket\Error;
 
 class SnmpAuthenticationException extends SnmpError
 {
