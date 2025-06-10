@@ -4,7 +4,6 @@ namespace IMEdge\SnmpPacket\Usm;
 
 use IMEdge\SnmpPacket\Error\SnmpAuthenticationException;
 use IMEdge\SnmpPacket\Message\SnmpV3Message;
-use IMEdge\Tests\Snmp\TestHelper;
 
 use function hash_hmac;
 use function strlen;
