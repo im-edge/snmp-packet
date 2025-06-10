@@ -2,9 +2,9 @@
 
 namespace IMEdge\SnmpPacket\Message;
 
-use FreeDSx\Asn1\Type\IncompleteType;
 use FreeDSx\Asn1\Type\OctetStringType;
 use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\SnmpPacket\Error\SnmpEncodingError;
 use IMEdge\SnmpPacket\Error\SnmpParseError;
 use IMEdge\SnmpPacket\ParseHelper;
 use IMEdge\SnmpPacket\Pdu\Pdu;
@@ -44,11 +44,14 @@ class Snmpv3ScopedPdu
         return $this->encryptedPdu === null;
     }
 
+    /**
+     * @throws SnmpEncodingError
+     */
     public function toAsn1(): SequenceType|OctetStringType
     {
         if ($this->encryptedPdu === null) {
             if ($this->pdu === null) {
-                throw new \RuntimeException('Cannot encode empty scoped PDU');
+                throw new SnmpEncodingError('Cannot encode empty scoped PDU');
             }
             return new SequenceType(
                 new OctetStringType($this->contextEngineId ?? ''),
