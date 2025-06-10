@@ -9,7 +9,7 @@ use IMEdge\SnmpPacket\Message\VarBindList;
 use IMEdge\SnmpPacket\Pdu\Report;
 use IMEdge\SnmpPacket\Usm\UserBasedSecurityModel;
 use IMEdge\SnmpPacket\Usm\UsmStats;
-use IMEdge\Tests\SnmpPacket\TestHelper;
+use IMEdge\SnmpPacket\Util\TestHelper;
 
 class SnmpMessageInspector
 {
