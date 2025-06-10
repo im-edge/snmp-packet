@@ -1,8 +1,10 @@
 <?php
 
-namespace IMEdge\Snmp\Message;
+namespace IMEdge\SnmpPacket\Message;
+
+use IMEdge\SnmpPacket\SnmpVersion;
 
 class SnmpV2Message extends SnmpV1Message
 {
-    protected int $version = self::SNMP_V2C;
+    public const VERSION = SnmpVersion::v2c;
 }

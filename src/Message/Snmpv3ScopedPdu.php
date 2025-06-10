@@ -1,10 +1,13 @@
 <?php
 
-namespace IMEdge\Snmp\Message;
+namespace IMEdge\SnmpPacket\Message;
 
-use IMEdge\Snmp\Pdu\Pdu;
-use Sop\ASN1\Type\Constructed\Sequence;
-use Sop\ASN1\Type\Primitive\OctetString;
+use FreeDSx\Asn1\Type\IncompleteType;
+use FreeDSx\Asn1\Type\OctetStringType;
+use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
+use IMEdge\SnmpPacket\ParseHelper;
+use IMEdge\SnmpPacket\Pdu\Pdu;
 
 class Snmpv3ScopedPdu
 {
@@ -41,31 +44,34 @@ class Snmpv3ScopedPdu
         return $this->encryptedPdu === null;
     }
 
-    public function toASN1(): Sequence|OctetString
+    public function toAsn1(): SequenceType|OctetStringType
     {
         if ($this->encryptedPdu === null) {
             if ($this->pdu === null) {
                 throw new \RuntimeException('Cannot encode empty scoped PDU');
             }
-            return new Sequence(
-                new OctetString($this->contextEngineId ?? ''),
-                new OctetString($this->contextName ?? ''),
-                $this->pdu->toASN1(),
+            return new SequenceType(
+                new OctetStringType($this->contextEngineId ?? ''),
+                new OctetStringType($this->contextName ?? ''),
+                $this->pdu->toAsn1(),
             );
         }
 
-        return new OctetString($this->encryptedPdu);
+        return new OctetStringType($this->encryptedPdu);
     }
 
-    public static function fromAsn1(Sequence|OctetString $encoded): Snmpv3ScopedPdu
+    /**
+     * @throws SnmpParseError
+     */
+    public static function fromAsn1(SequenceType|OctetStringType $encoded): Snmpv3ScopedPdu
     {
         $self = new Snmpv3ScopedPdu();
-        if ($encoded instanceof Sequence) {
-            $self->pdu = Pdu::fromASN1($encoded->at(2)->asTagged());
-            $self->contextEngineId = $encoded->at(0)->asOctetString();
-            $self->contextName = $encoded->at(1)->asOctetString();
+        if ($encoded instanceof SequenceType) {
+            $self->pdu = Pdu::fromAsn1(ParseHelper::requireIncomplete($encoded->getChild(2), 'PDU'));
+            $self->contextEngineId = $encoded->getChild(0)?->getValue();
+            $self->contextName = $encoded->getChild(1)?->getValue();
         } else {
-            $self->encryptedPdu = $encoded->string();
+            $self->encryptedPdu = $encoded->getValue();
         }
         // ScopedPDU ::= SEQUENCE {
         //   contextEngineID  OCTET STRING,

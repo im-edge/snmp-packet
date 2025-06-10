@@ -1,8 +1,8 @@
 <?php
 
-namespace IMEdge\Tests\Snmp;
+namespace IMEdge\Tests\SnmpPacket;
 
-use IMEdge\Snmp\ErrorStatus;
+use IMEdge\SnmpPacket\ErrorStatus;
 use PHPUnit\Framework\TestCase;
 use ValueError;
 

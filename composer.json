@@ -1,6 +1,6 @@
 {
-    "name": "imedge/snmp",
-    "description": "SNMP protocol implementation",
+    "name": "imedge/snmp-packet",
+    "description": "SNMP packet parser and renderer",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -14,20 +14,23 @@
     },
     "autoload": {
         "psr-4": {
-            "IMEdge\\Snmp\\": "src"
+            "IMEdge\\SnmpPacket\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "IMEdge\\Tests\\Snmp\\": "tests/"
+            "IMEdge\\Tests\\SnmpPacket\\": "tests/"
         }
     },
     "require": {
         "php": ">=8.1.0",
+        "ext-ctype": "*",
         "ext-gmp": "*",
         "ext-json": "*",
-        "imedge/json": ">=0.1",
-        "sop/asn1": "^4"
+        "ext-openssl": "*",
+        "ext-pcntl": "*",
+        "freedsx/asn1": "^0.4.8",
+        "imedge/json": ">=0.1"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.4",

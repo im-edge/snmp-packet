@@ -1,10 +1,10 @@
 <?php
 
-namespace IMEdge\Tests\Snmp\Usm;
+namespace IMEdge\Tests\SnmpPacket\Usm;
 
-use IMEdge\Snmp\Usm\AuthKey;
-use IMEdge\Snmp\Usm\SnmpAuthProtocol;
-use IMEdge\Tests\Snmp\TestHelper;
+use IMEdge\SnmpPacket\Usm\AuthKey;
+use IMEdge\SnmpPacket\Usm\SnmpAuthProtocol;
+use IMEdge\Tests\SnmpPacket\TestHelper;
 use PHPUnit\Framework\TestCase;
 
 class AuthKeyTest extends TestCase
@@ -71,6 +71,8 @@ class AuthKeyTest extends TestCase
     {
         $pass = 'maplesyrup';
         $engineId = TestHelper::unHex('00 00 00 00 00 00 00 00 00 00 00 02');
+        $intermediate = TestHelper::niceHex(TestHelper::unHex($intermediate));
+        $expected = TestHelper::niceHex(TestHelper::unHex($expected));
 
         $this->assertEquals($intermediate, TestHelper::niceHex(AuthKey::intermediate($authProtocol, $pass)));
         $this->assertEquals($expected, TestHelper::niceHex(AuthKey::generate($authProtocol, $pass, $engineId)));

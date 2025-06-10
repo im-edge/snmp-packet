@@ -1,15 +1,18 @@
 <?php
 
-namespace IMEdge\Snmp\Message;
+namespace IMEdge\SnmpPacket\Message;
 
-use IMEdge\Snmp\Pdu\Pdu;
-use Sop\ASN1\Type\Constructed\Sequence;
-use Sop\ASN1\Type\Primitive\Integer;
-use Sop\ASN1\Type\Primitive\OctetString;
+use FreeDSx\Asn1\Type\IntegerType;
+use FreeDSx\Asn1\Type\OctetStringType;
+use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
+use IMEdge\SnmpPacket\ParseHelper;
+use IMEdge\SnmpPacket\Pdu\Pdu;
+use IMEdge\SnmpPacket\SnmpVersion;
 
 class SnmpV1Message extends SnmpMessage
 {
-    protected int $version = self::SNMP_V1;
+    public const VERSION = SnmpVersion::v1;
 
     final public function __construct(
         #[\SensitiveParameter]
@@ -18,12 +21,12 @@ class SnmpV1Message extends SnmpMessage
     ) {
     }
 
-    public function toASN1(): Sequence
+    public function toAsn1(): SequenceType
     {
-        return new Sequence(
-            new Integer($this->version),
-            new OctetString($this->community),
-            $this->pdu->toASN1()
+        return new SequenceType(
+            new IntegerType(self::VERSION->value),
+            new OctetStringType($this->community),
+            $this->pdu->toAsn1()
         );
     }
 
@@ -32,11 +35,14 @@ class SnmpV1Message extends SnmpMessage
         return $this->pdu;
     }
 
-    public static function fromASN1(Sequence $sequence): static
+    /**
+     * @throws SnmpParseError
+     */
+    public static function fromAsn1(SequenceType $sequence): static
     {
         return new static(
-            $sequence->at(1)->asOctetString()->string(),
-            Pdu::fromASN1($sequence->at(2)->asTagged())
+            $sequence->getChild(1)?->getValue() ?? throw new SnmpParseError('Got no Community'),
+            Pdu::fromAsn1(ParseHelper::requireIncomplete($sequence->getChild(2), 'PDU'))
         );
     }
 }

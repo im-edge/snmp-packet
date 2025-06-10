@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp\Usm;
+namespace IMEdge\SnmpPacket\Usm;
 
 use function hash;
 

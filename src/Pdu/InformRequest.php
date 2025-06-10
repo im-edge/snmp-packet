@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Snmp\Pdu;
+namespace IMEdge\SnmpPacket\Pdu;
 
 /**
  * InformRequest
@@ -9,10 +9,6 @@ namespace IMEdge\Snmp\Pdu;
  */
 class InformRequest extends Pdu
 {
+    public const TAG = 6;
     protected bool $wantsResponse = true;
-
-    public function getTag(): int
-    {
-        return Pdu::INFORM_REQUEST;
-    }
 }

@@ -1,14 +1,16 @@
 <?php
 
-namespace IMEdge\Snmp;
+namespace IMEdge\SnmpPacket;
 
-use IMEdge\Snmp\Message\SnmpMessage;
-use IMEdge\Snmp\Message\SnmpV1Message;
-use IMEdge\Snmp\Message\SnmpV3Message;
-use IMEdge\Snmp\Message\VarBind;
-use IMEdge\Snmp\Pdu\Report;
-use IMEdge\Snmp\Usm\UserBasedSecurityModel;
-use IMEdge\Snmp\Usm\UsmStats;
+use IMEdge\SnmpPacket\Message\SnmpMessage;
+use IMEdge\SnmpPacket\Message\SnmpV1Message;
+use IMEdge\SnmpPacket\Message\SnmpV2Message;
+use IMEdge\SnmpPacket\Message\SnmpV3Message;
+use IMEdge\SnmpPacket\Message\VarBind;
+use IMEdge\SnmpPacket\Message\VarBindList;
+use IMEdge\SnmpPacket\Pdu\Report;
+use IMEdge\SnmpPacket\Usm\UserBasedSecurityModel;
+use IMEdge\SnmpPacket\Usm\UsmStats;
 use IMEdge\Tests\Snmp\TestHelper;
 
 class SnmpMessageInspector
@@ -20,13 +22,15 @@ class SnmpMessageInspector
 
     public static function getDump(SnmpMessage $message): string
     {
-        $result = sprintf("Version       : %s\n", $message->getVersion());
+        assert($message instanceof SnmpV1Message || $message instanceof SnmpV3Message);
+        $result = sprintf("Version       : %s\n", $message::VERSION->value);
         if ($message instanceof SnmpV1Message) {
             $result .= sprintf("Community     : %s\n", $message->community);
             $result .= sprintf("Request ID    : %s\n", $message->pdu->requestId ?? '-');
             $result .= self::prepareVarBinds($message->getPdu()->varBinds);
-        } elseif ($message instanceof SnmpV3Message) {
+        } else {
             if ($message->securityParameters instanceof UserBasedSecurityModel) {
+                $result .= sprintf("Message ID    : %s\n", $message->header->messageId ?? '-');
                 $result .= sprintf("Username      : %s\n", $message->securityParameters->username ?? '-');
                 $result .= sprintf("Engine ID     : %s\n", TestHelper::niceHex($message->securityParameters->engineId));
                 $result .= sprintf("Engine boots  : %d\n", $message->securityParameters->engineBoots);
@@ -62,21 +66,17 @@ class SnmpMessageInspector
             }
         }
 
-
         return $result;
     }
 
-    /**
-     * @param VarBind[] $varBinds
-     */
-    protected static function prepareVarBinds(array $varBinds): string
+    protected static function prepareVarBinds(VarBindList $varBinds): string
     {
         $result = "VarBinds      :\n";
-        foreach ($varBinds as $varBind) {
+        foreach ($varBinds->varBinds as $varBind) {
             $result .= sprintf(
                 "%s => %s\n",
                 $varBind->oid,
-                $varBind->value->getReadableValue()
+                $varBind->value?->getReadableValue() ?? '(null)'
             );
         }
 

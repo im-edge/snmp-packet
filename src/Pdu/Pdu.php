@@ -1,105 +1,92 @@
 <?php
 
-namespace IMEdge\Snmp\Pdu;
+namespace IMEdge\SnmpPacket\Pdu;
 
-use IMEdge\Snmp\ErrorStatus;
-use IMEdge\Snmp\Message\VarBind;
+use FreeDSx\Asn1\Asn1;
+use FreeDSx\Asn1\Encoder\BerEncoder;
+use FreeDSx\Asn1\Exception\EncoderException;
+use FreeDSx\Asn1\Type\AbstractType;
+use FreeDSx\Asn1\Type\IncompleteType;
+use FreeDSx\Asn1\Type\IntegerType;
+use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
+use IMEdge\SnmpPacket\ErrorStatus;
+use IMEdge\SnmpPacket\Message\VarBindList;
+use IMEdge\SnmpPacket\ParseHelper;
 use InvalidArgumentException;
 use RuntimeException;
-use Sop\ASN1\Element;
-use Sop\ASN1\Type\Constructed\Sequence;
-use Sop\ASN1\Type\Primitive\Integer;
-use Sop\ASN1\Type\Tagged\ImplicitlyTaggedType;
-use Sop\ASN1\Type\TaggedType;
 
 abstract class Pdu
 {
-    public const GET_REQUEST = 0;
-    public const GET_NEXT_REQUEST = 1;
-    public const RESPONSE = 2;
-    public const SET_REQUEST = 3;
-    public const TRAP = 4; // Special, obsolete
-    public const GET_BULK_REQUEST = 5; // Special
-    public const INFORM_REQUEST = 6;
-    public const TRAP_V2 = 7; // ?
-    public const REPORT = 8;
+    public const TAG = -1; // Must be overridden
 
-    protected ErrorStatus $errorStatus = ErrorStatus::NO_ERROR;
-    protected int $errorIndex = 0;
+    protected static ?BerEncoder $encoder = null;
+    public ErrorStatus $errorStatus = ErrorStatus::NO_ERROR;
+    public int $errorIndex = 0;
     protected bool $wantsResponse = false;
 
-    /**
-     * @param VarBind[] $varBinds
-     */
     public function __construct(
-        public readonly array $varBinds = [],
+        public readonly VarBindList $varBinds = new VarBindList(),
         public ?int $requestId = null
     ) {
     }
-
-    abstract public function getTag(): int;
 
     public function wantsResponse(): bool
     {
         return $this->wantsResponse;
     }
 
-    public function hasOid(string $oid): bool
-    {
-        return isset($this->varBinds[$oid]);
-    }
-
-    public function isError(): bool
-    {
-        return $this->errorStatus !== ErrorStatus::NO_ERROR;
-    }
-
-    public function getErrorStatus(): ErrorStatus
-    {
-        return $this->errorStatus;
-    }
-
-    public function getErrorIndex(): int
-    {
-        return $this->errorIndex;
-    }
-
-    public function toASN1(): ImplicitlyTaggedType
+    public function toAsn1(): AbstractType
     {
         if ($this->requestId === null) {
             throw new RuntimeException('Cannot created ASN1 type w/o requestId');
         }
-        return new ImplicitlyTaggedType($this->getTag(), new Sequence(
-            new Integer($this->requestId),
-            new Integer($this->errorStatus->value),
-            new Integer($this->errorIndex),
-            VarBind::listToSequence($this->varBinds)
+        if (static::TAG === -1) {
+            throw new RuntimeException(sprintf('%s has no TAG', get_class($this)));
+        }
+
+        return Asn1::context(static::TAG, new SequenceType(
+            new IntegerType($this->requestId),
+            new IntegerType($this->errorStatus->value),
+            new IntegerType($this->errorIndex),
+            $this->varBinds->toAsn1()
         ));
     }
 
-    public static function fromASN1(TaggedType $tagged): Pdu
+    /**
+     * @throws SnmpParseError
+     */
+    public static function fromAsn1(IncompleteType $type): Pdu
     {
-        $sequence = $tagged->asImplicit(Element::TYPE_SEQUENCE)->asSequence();
+        self::$encoder ??= new BerEncoder();
+        try {
+            $sequence = self::$encoder->complete($type, AbstractType::TAG_TYPE_SEQUENCE);
+        } catch (EncoderException $e) {
+            throw new SnmpParseError($e->getMessage(), $e->getCode(), $e);
+        }
+
         // $sequence->count() === 4;
-        $varBinds = VarBind::listFromSequence($sequence->at(3)->asSequence());
-        $pdu = match ($tagged->tag()) {
-            self::GET_REQUEST      => new GetRequest($varBinds),
-            self::GET_NEXT_REQUEST => new GetNextRequest($varBinds),
-            self::RESPONSE         => new Response($varBinds),
-            self::SET_REQUEST      => new SetRequest($varBinds),
-            self::GET_BULK_REQUEST => new GetBulkRequest($varBinds),
-            self::INFORM_REQUEST   => new InformRequest($varBinds),
-            self::TRAP_V2          => new TrapV2($varBinds),
-            self::REPORT           => new Report($varBinds),
-            default                => throw new InvalidArgumentException(sprintf(
+        $varBinds = VarBindList::fromAsn1(ParseHelper::requireSequence($sequence->getChild(3), 'VarBinds'));
+        $pdu = match ($sequence->getTagNumber()) {
+            GetRequest::TAG     => new GetRequest($varBinds),
+            GetNextRequest::TAG => new GetNextRequest($varBinds),
+            Response::TAG       => new Response($varBinds),
+            SetRequest::TAG     => new SetRequest($varBinds),
+            GetBulkRequest::TAG => new GetBulkRequest($varBinds),
+            InformRequest::TAG  => new InformRequest($varBinds),
+            TrapV2::TAG         => new TrapV2($varBinds),
+            Report::TAG         => new Report($varBinds),
+            default             => throw new InvalidArgumentException(sprintf(
                 'Invalid PDU tag %s',
-                $tagged->tag()
+                $sequence->getTagNumber()
             )),
         };
 
-        $pdu->requestId = $sequence->at(0)->asInteger()->intNumber();
-        $pdu->errorStatus = ErrorStatus::from($sequence->at(1)->asInteger()->intNumber());
-        $pdu->errorIndex = $sequence->at(2)->asInteger()->intNumber();
+        $pdu->requestId = $sequence->getChild(0)?->getValue() ?? throw new SnmpParseError('Got no RequestId');
+        $pdu->errorStatus = ErrorStatus::from(
+            $sequence->getChild(1)?->getValue() ?? throw new SnmpParseError('Got no ErrorStatus')
+        );
+        $pdu->errorIndex = $sequence->getChild(2)?->getValue() ?? throw new SnmpParseError('Got no ErrorIndex');
 
         return $pdu;
     }

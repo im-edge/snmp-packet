@@ -1,9 +1,8 @@
 <?php
 
-namespace IMEdge\Snmp\Usm;
+namespace IMEdge\SnmpPacket\Usm;
 
-use IMEdge\Snmp\Message\Snmpv3SecurityParameters;
-use Sop\ASN1\Type\Primitive\OctetString;
+use IMEdge\SnmpPacket\Message\Snmpv3SecurityParameters;
 
 /**
  * Unused
@@ -12,13 +11,8 @@ class NoSecurityModel implements Snmpv3SecurityParameters
 {
     protected static ?string $rawString = null;
 
-    protected static function generateRawString(): string
-    {
-        return (new OctetString(''))->toDER();
-    }
-
     public function __toString(): string
     {
-        return self::$rawString ??= self::generateRawString();
+        return self::$rawString ??= '';
     }
 }

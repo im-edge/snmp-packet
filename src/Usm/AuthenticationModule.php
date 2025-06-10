@@ -1,9 +1,9 @@
 <?php
 
-namespace IMEdge\Snmp\Usm;
+namespace IMEdge\SnmpPacket\Usm;
 
-use IMEdge\Snmp\Error\SnmpAuthenticationException;
-use IMEdge\Snmp\Message\SnmpV3Message;
+use IMEdge\SnmpPacket\Error\SnmpAuthenticationException;
+use IMEdge\SnmpPacket\Message\SnmpV3Message;
 
 use function hash_hmac;
 use function strlen;

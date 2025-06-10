@@ -1,56 +1,55 @@
 <?php
 
-namespace IMEdge\Snmp\Message;
+namespace IMEdge\SnmpPacket\Message;
 
-use IMEdge\Snmp\Pdu\Pdu;
+use Exception;
+use FreeDSx\Asn1\Encoder\BerEncoder;
+use FreeDSx\Asn1\Type\SequenceType;
+use IMEdge\SnmpPacket\Error\SnmpParseError;
+use IMEdge\SnmpPacket\ParseHelper;
+use IMEdge\SnmpPacket\Pdu\Pdu;
+use IMEdge\SnmpPacket\SnmpVersion;
 use InvalidArgumentException;
-use Sop\ASN1\Type\Constructed\Sequence;
-use Sop\ASN1\Type\UnspecifiedType;
 
 abstract class SnmpMessage
 {
-    use SequenceTrait;
+    protected static ?BerEncoder $encoder = null;
 
-    protected const SNMP_V1  = 0;
-    protected const SNMP_V2C = 1;
-    protected const SNMP_V3  = 3;
-
-    /** @var array<int, string> */
-    public static array $versionNames = [
-        self::SNMP_V1  => 'v1',
-        self::SNMP_V2C => 'v2c',
-        self::SNMP_V3  => 'v3',
-    ];
-
-    protected int $version;
-
-    /**
-     * @param Sequence $sequence
-     * @return SnmpMessage
-     */
-    public static function fromASN1(Sequence $sequence): SnmpMessage
+    public static function fromAsn1(SequenceType $sequence): SnmpMessage
     {
-        $version = $sequence->at(0)->asInteger()->intNumber();
+        $version = SnmpVersion::tryFrom($sequence->getChild(0)?->getValue());
 
         return match ($version) {
-            self::SNMP_V1        => SnmpV1Message::fromASN1($sequence),
-            self::SNMP_V2C       => SnmpV2Message::fromASN1($sequence),
-            SnmpMessage::SNMP_V3 => SnmpV3Message::fromASN1($sequence),
-            default => throw new InvalidArgumentException("Unsupported message version: $version"),
+            SnmpVersion::v1  => SnmpV1Message::fromAsn1($sequence),
+            SnmpVersion::v2c => SnmpV2Message::fromAsn1($sequence),
+            SnmpVersion::v3  => SnmpV3Message::fromAsn1($sequence),
+            null => throw new InvalidArgumentException(sprintf(
+                "Unsupported message version: %s",
+                $sequence->getChild(0)?->getValue() ?? 'NULL'
+            )),
         };
     }
 
-    abstract public function toASN1(): Sequence;
+    abstract public function toAsn1(): SequenceType;
 
     abstract public function getPdu(): Pdu;
 
+    /**
+     * @throws SnmpParseError
+     */
     public static function fromBinary(string $binary): SnmpMessage
     {
-        return static::fromASN1(UnspecifiedType::fromDER($binary)->asSequence());
+        self::$encoder ??= new BerEncoder();
+        try {
+            return static::fromAsn1(ParseHelper::requireSequence(self::$encoder->decode($binary), 'message'));
+        } catch (Exception $e) {
+            throw new SnmpParseError($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
-    public function getVersion(): string
+    public function toBinary(): string
     {
-        return static::$versionNames[$this->version];
+        self::$encoder ??= new BerEncoder();
+        return self::$encoder->encode($this->toAsn1());
     }
 }
