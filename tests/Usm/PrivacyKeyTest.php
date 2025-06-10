@@ -5,7 +5,7 @@ namespace IMEdge\Tests\SnmpPacket\Usm;
 use IMEdge\SnmpPacket\Usm\SnmpPrivProtocol;
 use IMEdge\SnmpPacket\Usm\PrivacyKey;
 use IMEdge\SnmpPacket\Usm\SnmpAuthProtocol;
-use IMEdge\Tests\SnmpPacket\TestHelper;
+use IMEdge\SnmpPacket\Util\TestHelper;
 use PHPUnit\Framework\TestCase;
 
 class PrivacyKeyTest extends TestCase

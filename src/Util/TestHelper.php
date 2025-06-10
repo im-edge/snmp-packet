@@ -1,6 +1,6 @@
 <?php
 
-namespace IMEdge\Tests\SnmpPacket;
+namespace IMEdge\SnmpPacket\Util;
 
 use InvalidArgumentException;
 

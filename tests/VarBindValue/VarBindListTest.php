@@ -7,7 +7,7 @@ use IMEdge\SnmpPacket\VarBindValue\ObjectIdentifier;
 use IMEdge\SnmpPacket\VarBindValue\OctetString;
 use IMEdge\SnmpPacket\VarBindValue\TimeTicks;
 use IMEdge\Tests\SnmpPacket\TestCase;
-use IMEdge\Tests\SnmpPacket\TestHelper;
+use IMEdge\SnmpPacket\Util\TestHelper;
 
 class VarBindListTest extends TestCase
 {

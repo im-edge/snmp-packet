@@ -7,7 +7,7 @@ use IMEdge\SnmpPacket\Usm\PrivacyModule;
 use IMEdge\SnmpPacket\Usm\RemoteEngine;
 use IMEdge\SnmpPacket\Usm\SnmpAuthProtocol;
 use IMEdge\Tests\SnmpPacket\TestCase;
-use IMEdge\Tests\SnmpPacket\TestHelper;
+use IMEdge\SnmpPacket\Util\TestHelper;
 
 class PrivacyModuleTest extends TestCase
 {

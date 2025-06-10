@@ -6,6 +6,7 @@ use FreeDSx\Asn1\Encoder\BerEncoder;
 use FreeDSx\Asn1\Type\AbstractType;
 use FreeDSx\Asn1\Type\SequenceType;
 use IMEdge\SnmpPacket\Usm\SnmpPrivProtocol;
+use IMEdge\SnmpPacket\Util\TestHelper;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase

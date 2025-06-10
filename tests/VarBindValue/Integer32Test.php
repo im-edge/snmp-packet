@@ -5,7 +5,7 @@ namespace IMEdge\Tests\SnmpPacket\VarBindValue;
 use FreeDSx\Asn1\Encoder\BerEncoder;
 use IMEdge\SnmpPacket\VarBindValue\Integer32;
 use IMEdge\SnmpPacket\VarBindValue\Value;
-use IMEdge\Tests\SnmpPacket\TestHelper;
+use IMEdge\SnmpPacket\Util\TestHelper;
 use PHPUnit\Framework\TestCase;
 
 class Integer32Test extends TestCase

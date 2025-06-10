@@ -5,7 +5,7 @@ namespace IMEdge\Tests\SnmpPacket\VarBindValue;
 use FreeDSx\Asn1\Encoder\BerEncoder;
 use IMEdge\SnmpPacket\VarBindValue\OctetString;
 use IMEdge\SnmpPacket\VarBindValue\Value;
-use IMEdge\Tests\SnmpPacket\TestHelper;
+use IMEdge\SnmpPacket\Util\TestHelper;
 use PHPUnit\Framework\TestCase;
 
 class OctetStringTest extends TestCase
