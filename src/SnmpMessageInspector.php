@@ -4,14 +4,12 @@ namespace IMEdge\SnmpPacket;
 
 use IMEdge\SnmpPacket\Message\SnmpMessage;
 use IMEdge\SnmpPacket\Message\SnmpV1Message;
-use IMEdge\SnmpPacket\Message\SnmpV2Message;
 use IMEdge\SnmpPacket\Message\SnmpV3Message;
-use IMEdge\SnmpPacket\Message\VarBind;
 use IMEdge\SnmpPacket\Message\VarBindList;
 use IMEdge\SnmpPacket\Pdu\Report;
 use IMEdge\SnmpPacket\Usm\UserBasedSecurityModel;
 use IMEdge\SnmpPacket\Usm\UsmStats;
-use IMEdge\Tests\Snmp\TestHelper;
+use IMEdge\Tests\SnmpPacket\TestHelper;
 
 class SnmpMessageInspector
 {
