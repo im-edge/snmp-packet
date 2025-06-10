@@ -10,7 +10,7 @@ use function substr;
 
 class AuthKey
 {
-    protected const MEGA_BYTE = 1048576;
+    protected const MEGA_BYTE = 1_024 * 1_024;
 
     public static function generate(SnmpAuthProtocol $authProtocol, string $pass, string $engineId): string
     {
