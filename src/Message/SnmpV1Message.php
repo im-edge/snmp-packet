@@ -24,7 +24,7 @@ class SnmpV1Message extends SnmpMessage
     public function toAsn1(): SequenceType
     {
         return new SequenceType(
-            new IntegerType(self::VERSION->value),
+            new IntegerType(static::VERSION->value),
             new OctetStringType($this->community),
             $this->pdu->toAsn1()
         );
